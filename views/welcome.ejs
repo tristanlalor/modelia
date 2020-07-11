@@ -1,0 +1,388 @@
+<!-- <div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body text-center">
+        <h1><i class="fab fa-node-js fa-3x"></i></h1>
+        <p>Create an account or login</p>
+        <a href="/users/register" class="btn btn-primary btn-block mb-2"
+          >Register</a
+        >
+        <a href="/users/login" class="btn btn-secondary btn-block">Login</a>
+      </div>
+    </div>
+  </div> -->
+
+
+    <div class="ghost"></div>
+    <div class="nav-btn">
+        <div class="full-screen-btn">
+            <div>
+                Full Screen
+            </div>
+        </div>
+        <div class="btn btn-1">
+            <div>
+                Summary
+            </div>
+        </div>
+        <div class="btn btn-2">
+            <div>
+                Financial Statements
+            </div>
+        </div>
+        <div class="btn btn-3">
+            <div>
+                DCF
+            </div>
+        </div>
+        <div class="btn btn-4">
+            <div>
+                Account
+            </div>
+        </div>
+        <div class="btn btn-5">
+            <div>
+                About the Developer
+            </div>
+        </div>
+    </div>
+
+    <div class="all-pages-container scale">
+        <!-- ############################################################## -->
+        <div class="summary container">
+            <div class="sum-nav">
+                <div class="sum-picture-box">
+                    <div class="picture-border"></div>
+                    <div class="picture"></div>
+                </div>
+                <!-- <div class="sum-spacer"></div> -->
+                <div class="sum-title">
+                    <div class="white-title">
+                        Company X
+                    </div>
+                    <div class="subtitle">
+                        Subtitle Y
+                    </div>
+                </div>
+                <div class="sum-nav-btns">
+                    <div>Popular Models</div>
+                    <div class="sum-nav-btn">Cisco Systems</div>
+                    <div class="sum-nav-btn">Tesla Inc</div>
+                    <div class="sum-nav-btn">Tesla Inc</div>
+                </div>
+                <div class="sum-collapse-nav" onclick="sumCollapseNav();"></div>
+            </div>
+            <div class="sum-content">
+                <div class="sum-search">
+                    <input class="sum-search-text" placeholder="Search" type="text"></input>
+                    <div class="sum-search-submit"></div>
+                </div>
+                <!-- <div style="height: 55px; width: 100%;"></div> -->
+                <div class="sum-top-half">
+                    <div class="sum-description">
+                        <div class="sum-content-title" style="margin-left: 0px;">
+                            Description
+                        </div>
+                        Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
+                    </div>
+                    
+                    <div class="sum-stats-box-outer">
+                        <div class="sum-stats-box">
+                            <div class="sum-content-title">
+                                Summary Statistics
+                            </div>
+                        </div>
+                        <div class="pie-chart-box">
+                            <!-- Resources -->
+                            <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                            <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                            <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
+                            <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                            
+                            
+                            <div id="piechartdiv"></div>
+                            <div id="piechartlegend"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="sum-content-title">
+                    Operating Performance
+                </div>
+                <div class="graph-box">
+                    <div id="chartdiv"></div>
+                </div>
+            </div>
+        </div>
+        <!-- ############################################################## -->
+        <div class="fs container active">
+            <!-- <div class="statement is">
+                <img class="fs-icon" src="temp.png"/>
+                <div class="inner hidden">
+                    
+                </div>
+            </div>
+            <div class="statement bs">
+                <img class="fs-icon" src="temp.png"/>
+                <div class="inner hidden">
+                    
+                </div>
+            </div>
+            <div class="statement cfs">
+                <img class="fs-icon" src="temp.png"/>
+                <div class="inner hidden">
+                    
+                </div>
+            </div> -->
+
+            <div class="fs-nav">
+                <div class="fs-nav-item first selected">Home</div>
+                <div class="fs-nav-item">History</div>
+                <div class="fs-nav-item">Balances</div>
+                <div class="fs-nav-item">Cards</div>
+                <div class="fs-nav-item">Recipients</div>
+                <div class="fs-nav-item">Income Statement</div>
+                <div class="fs-nav-item">Balance Sheet</div>
+                <div class="fs-nav-item">Cash Flows</div>
+                <div class="fs-collapse-nav" onclick="fsCollapseNav();"></div>
+            </div>
+            <div class="fs-content">
+                <div class="fs-table-title">Financial Statement</div>
+                <div class="fs-table-outer">
+                    <table>
+                        <tbody>
+                        <!-- <th>
+                            <td>2015</td>
+                            <td>2016</td>
+                            <td>2017</td>
+                            <td>2018</td>
+                            <td>2019</td>
+                            <td>2020</td>
+                            <td>2021</td>
+                            <td>2022</td>
+                            <td>2023</td>
+                            <td>2024</td>
+                        </th>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>financial statement item</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="dcf container">
+            DCF
+        </div>
+        <div class="account container">
+            My Account
+        </div>
+        <div class="abt container">
+            <!-- <img class="full-screen-icon" src="full-screen.png" alt="" style="filter: invert(1);"> -->
+            <div class="white-box">
+                <div class="photo">
+                    <canvas id="canvas1"></canvas>
+                </div>
+                <div class="bio">
+                    TRISTAN<br>LALOR
+                    <br>
+                    <div class="dev">DEVELOPER</div>
+                    <div class="socials-box">
+                        <div>
+                            tristanlalor@gmail.com <br>
+                            Tel. 802 - 379 - 0996 <br> <br>
+                        </div>
+                        <div class="icon-link">
+                            <img class="icon" src="website.png" alt="">
+                            <a href="https://www.tristanlalor.com/">tristanlalor.com</a>
+                        </div>
+                        <br>
+                        <div class="icon-link">
+                            <img class="icon" src="linkedin.png" alt="">
+                            <a href="https://www.linkedin.com/in/tristanlalor">linked.com/in/tristanlalor</a>
+                        </div>
+                        <br>
+                        <div class="icon-link">
+                            <img class="icon" src="github.png" alt="">
+                            <a href="https://www.github.com/tristanlalor/">github.com/tristanlalor</a>
+                        </div>
+                    </div>
+                    <div class="dev" style="height: 22px;"></div>
+                    <div class="education-box">
+                        <div>
+                            <div class="bio-header">EDUCATION</div><br>
+                            <div class="italics">B.S. Data Analytics / Finance</div>
+                            University of Vermont <br>
+                            Graduated May 2020 <br> <br>
+                            
+                            Cumulative GPA: 3.72 <br>
+                            Computer Science GPA: 4.0 <br>
+                            Finance GPA: 4.0
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            
+            <div class="gray-box">
+                <div class="gray-box-main">
+                    <heading class="heading"><strong>PROFILE</strong></heading>
+                    Hi, thanks for checking out my app. I am a recent graduate of the University of Vermont where I studied Analytics, Finance, and Computer Science. I am looking for a position as a front-end web developer and am actively interviewing. I'm eager to learn new technologies and am a quick and self driven learner. Please don't hesitate to reach out!
+                    <br><br>
+                    <heading class="heading"><strong>OTHER APPS</strong></heading> <br>
+                    <a class="bio-header">LANDLORD RATING WEB APP</a> <br>
+                    <a class="italics">Javascript / HTML / CSSS / Rails</a> <br>
+                    Inspired by ‘RateMyProfessors.com’, Landlord Hive is an application that allows tenants to rate their landlords on their communication skills, organization, and ability to resolve issues. The site uses a custom search algorithm that builds SQL queries from users’ input to return results from the database.
+    
+                </div>
+            </div>
+        </div>
+        <div class="transition-outer">
+            <div class="transition">
+        
+            </div>
+        </div>
+
+    </div>
