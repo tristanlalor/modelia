@@ -6,7 +6,7 @@ const { ensureAuthenticated } = require('../config/auth')
 router.get('/', (req, res) => {
     if (req.user) {
         res.redirect('/dashboard');
-    } else res.render('Welcome');
+    } else res.render('welcome');
 });
 //Dashboard
 router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dashboard', {
