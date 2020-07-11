@@ -47,7 +47,8 @@ app.engine('html', require('ejs').renderFile);
 // app.set('view engine', 'html');
 // app.set('views', __dirname);
 // app.set('views', path.join(__dirname, 'views'));
-app.set('views', path.join(__dirname, ''));
+// app.set('views', path.join(__dirname, ''));
+app.set('views', __dirname + '/views');
 
 //link to public
 app.use(express.static(path.join(__dirname, 'public')));
