@@ -14,11 +14,14 @@
 
     <div class="ghost"></div>
     <div class="nav-btn">
-        <div class="full-screen-btn">
-            <div>
-                Full Screen
+        <!-- <div class="full-screen-btn"> -->
+            <div class="ham-icon">
+                <div class="hamburger"></div>
             </div>
-        </div>
+            <!-- <div>
+                Full Screen
+            </div> -->
+        <!-- </div> -->
         <div class="btn btn-1">
             <div>
                 Summary
@@ -135,8 +138,11 @@
                     
                 </div>
             </div> -->
-
+            
             <div class="fs-nav">
+                <div class="logo-box">
+                    <img class="logo" src="img/Logo.png" alt="">
+                </div>
                 <div class="fs-nav-item first selected">Home</div>
                 <div class="fs-nav-item">History</div>
                 <div class="fs-nav-item">Balances</div>
@@ -148,6 +154,31 @@
                 <div class="fs-collapse-nav" onclick="fsCollapseNav();"></div>
             </div>
             <div class="fs-content">
+                <div class="top">
+                    <div class="fs-search-box">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
+                            <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
+                            </svg>
+                        <input class="fs-search-text" placeholder="Search Companies" type="text"></input>
+                    </div>
+                    <div class="underline" style="
+                        border-bottom: solid rgb(233, 234, 238) 1px; 
+                        width: calc(100% - 50px); margin-left: 25px; top: 40px;
+                        position: relative;">
+                    </div>
+                    <div class="top-info">
+                        <div class="company-pic"></div>
+                        <div class="company-highlights-box">
+                            <div class="company-name">Company Name</div>
+                            <div class="company-stats-box">
+                                <img src="img/mkcap.svg" alt="" style="width: 15px; filter: invert(.5);">
+                                <div class="company-stat">Market Cap: 24B</div>
+                                <img src="img/stockup.svg" alt="" style="width: 15px; margin-left: 25px; transform: rotate(-45deg); filter: hue-rotate(-60deg);">
+                                <div class="company-stat">Share Price: $167.23</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="fs-table-title">Financial Statement</div>
                 <div class="fs-table-outer">
                     <table>
@@ -335,17 +366,17 @@
                             Tel. 802 - 379 - 0996 <br> <br>
                         </div>
                         <div class="icon-link">
-                            <img class="icon" src="website.png" alt="">
+                            <img class="icon" src="img/website.png" alt="">
                             <a href="https://www.tristanlalor.com/">tristanlalor.com</a>
                         </div>
                         <br>
                         <div class="icon-link">
-                            <img class="icon" src="linkedin.png" alt="">
+                            <img class="icon" src="img/linkedin.png" alt="">
                             <a href="https://www.linkedin.com/in/tristanlalor">linked.com/in/tristanlalor</a>
                         </div>
                         <br>
                         <div class="icon-link">
-                            <img class="icon" src="github.png" alt="">
+                            <img class="icon" src="img/github.png" alt="">
                             <a href="https://www.github.com/tristanlalor/">github.com/tristanlalor</a>
                         </div>
                     </div>
