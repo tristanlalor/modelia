@@ -33,7 +33,7 @@ apiCallTest();
 
 
 
-const sampleData = [
+export const sampleData = [
     {
       "date": "2019-12-31",
       "symbol": "TSLA",
@@ -386,30 +386,30 @@ const sampleData = [
     }
 ]
 
-const table = document.querySelector('.fs-table-outer table');
+// const table = document.querySelector('.fs-table-outer table');
 
-let header = table.createTHead();
-let row = header.insertRow(0);
-let base = row.insertCell(-1);
-let cell = row.insertCell(-1);
-cell.innerHTML = `${sampleData['0']['period']} ${sampleData['0']['fillingDate']}`;
+// let header = table.createTHead();
+// let row = header.insertRow(0);
+// let base = row.insertCell(-1);
+// let cell = row.insertCell(-1);
+// cell.innerHTML = `${sampleData['0']['period']} ${sampleData['0']['fillingDate']}`;
 
-let count = 0;
-for (var prop in sampleData['0']) {
-    if (count > 4 && count <= 30) {
-        if (Object.prototype.hasOwnProperty.call(sampleData['0'], prop)) {
-            // do stuff
-            let newRow = table.insertRow(-1);
-            let newCell = newRow.insertCell(-1);
-            newCell.innerHTML = `${prop}`;
-            let newCell2 = newRow.insertCell(-1);
-            newCell2.innerHTML = `${sampleData['0'][prop]}`;
-        }
-    }
-    count++;
-}
+// let count = 0;
+// for (var prop in sampleData['0']) {
+//     if (count > 4 && count <= 30) {
+//         if (Object.prototype.hasOwnProperty.call(sampleData['0'], prop)) {
+//             // do stuff
+//             let newRow = table.insertRow(-1);
+//             let newCell = newRow.insertCell(-1);
+//             newCell.innerHTML = `${prop}`;
+//             let newCell2 = newRow.insertCell(-1);
+//             newCell2.innerHTML = `${sampleData['0'][prop]}`;
+//         }
+//     }
+//     count++;
+// }
 
-let addYearData = (obj) => {
+export const addYearData = (obj) => {
     const table = document.querySelector('.fs-table-outer table');
     let headerRow = document.querySelector('.fs-table-outer table thead tr')
     let cell = headerRow.insertCell(-1);
@@ -429,5 +429,5 @@ let addYearData = (obj) => {
         rowNum++;
     }
 }
-addYearData(sampleData['1']);
-addYearData(sampleData['2']);
+// addYearData(sampleData['1']);
+// addYearData(sampleData['2']);

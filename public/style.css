@@ -24,6 +24,7 @@ body {
     /* border: solid red 1px; */
     /* z-index: 999 !important; */
     transform-origin: left;
+    /* background: red; */
     /* background: white; */
 }
 .nav-btn, .ghost {
@@ -167,6 +168,7 @@ body {
     box-shadow: 10px 10px 49px 0px rgba(0,0,0,0.44);
     border-radius: 5px;
     transform: scale(.8);
+    transition: .65s cubic-bezier(0, 1, 0.17, 1);
 }
 /* .show-menu {
     transform: scale(.8);
@@ -760,6 +762,11 @@ body {
 .fs-search-text:focus {
     outline: none;
 }
+
+.variable-content {
+
+}
+
 .fs-table-title {
     font-size: 20pt;
     margin: 25px;

@@ -1,4 +1,11 @@
+import * as graphlib from '/graphs.js';
+
+
+
+// const am4core = require("https://cdn.amcharts.com/lib/4/core.js");
+// const am4charts = require("https://cdn.amcharts.com/lib/4/charts.js");
 let timer;
+let scaling;
 let clickHappening = false;
 let activeClass = "fs";
 
@@ -14,11 +21,17 @@ let mouseEnter = (color) => {
     //     document.querySelector(".transition").classList.add("peak-in");
     // }
 };
+// let timer;
 let mouseOver = () => {
-    console.log("Mouse Over");
-    if (!event.relatedTarget.classList.contains('btn') && !event.relatedTarget.classList.contains('ghost') || !event.relatedTarget.classList.contains('.ham-icon') && !event.relatedTarget.classList.contains('ghost') || !event.relatedTarget.classList.contains('hamburger') && !event.relatedTarget.classList.contains('ghost')){
+    if (event.relatedTarget == null || !event.relatedTarget.classList.contains('btn') && !event.relatedTarget.classList.contains('ghost') && !event.relatedTarget.classList.contains('ham-icon') && !event.relatedTarget.classList.contains('hamburger')){
+        clearTimeout(timer);
+        scaling = true;
+        setTimeout(() => {
+            scaling = false
+        }, 650);
         timer = setTimeout(function(){
             if (!clickHappening) {
+                console.log("Mouse Over");
                 addHamburger();
                 if (document.querySelector('.all-pages-container').classList.contains("scale")) {
                     document.querySelector('.all-pages-container').classList.remove("scale");
@@ -40,14 +53,26 @@ let mouseOver = () => {
 
 let mouseLeaveBtns = (event) => {
     console.log(event.relatedTarget);
+    // console.log(event.relatedTarget.classList.contains('ghost'));
+    // console.log(event.relatedTarget == document.querySelector('.ghost'));
     // document.querySelector(".transition").classList.remove("peak-in");
-    if (event.relatedTarget != document.querySelector(`.ghost`) && !event.relatedTarget.classList.contains('btn') && !event.relatedTarget.classList.contains('ham-icon') && !event.relatedTarget.classList.contains('.hamburger')) {
+    if (event.relatedTarget == null || !event.relatedTarget.classList.contains('ghost') && !event.relatedTarget.classList.contains('btn') && !event.relatedTarget.classList.contains('ham-icon') && !event.relatedTarget.classList.contains('hamburger')) {
         clearTimeout(timer);
-        if (!docked){
-            if (!document.querySelector('.all-pages-container').classList.contains("scale")) {
-                document.querySelector('.all-pages-container').classList.add("scale");
+        // timer = 0;
+        console.log('mouseleave');
+        let scalePage = (e) => {
+            if (!docked){
+                if (!document.querySelector('.all-pages-container').classList.contains("scale")) {
+                    document.querySelector('.all-pages-container').classList.add("scale");
+                }
             }
-        };
+            if (e) e.target.removeEventListener(e.type, scalePage);
+        }
+        if (!scaling) {
+            scalePage();
+        } else {
+            document.querySelector('.all-pages-container').addEventListener('transitionend', scalePage);
+        }
         Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
             let ele = document.querySelector(`.btn-${index+1}`)
             ele.style.transform = `translateX(0px)`;
@@ -69,6 +94,65 @@ let addHamburger = (event) => {
     document.querySelector('.ham-icon').classList.add('hamburger-active')
 };
 // document.querySelector('.ham-icon').addEventListener('click', toggleHamburger);
+
+// ###########################################################
+
+let removeElement = (element) => {
+    // Removes an element from the document
+    element.parentNode.removeChild(element);
+}
+
+
+//add summaary content to variable content div
+document.querySelector('.home-btn').addEventListener('click', () => {
+    document.querySelector('.variable-content').innerHTML = `
+    <div class="sum-content">
+        <div class="sum-top-half">
+            <div class="sum-description">
+                <div class="sum-content-title" style="margin-left: 0px;">
+                    Description
+                </div>
+                Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
+            </div>
+            
+            <div class="sum-stats-box-outer">
+                <div class="sum-stats-box">
+                    <div class="sum-content-title">
+                        Summary Statistics
+                    </div>
+                </div>
+                <div class="pie-chart-box">
+                    <!-- Resources -->
+                    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                    <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
+                    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    
+                    
+                    <div id="piechartdiv"></div>
+                    <div id="piechartlegend"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="sum-content-title">
+            Operating Performance
+        </div>
+        <div class="graph-box">
+            <div id="chartdiv"></div>
+        </div>
+    </div>
+    `;
+    graphlib.createOpChart();
+
+});
+
+
+
+// ###########################################################
+
 
 
 let transitionElement = document.querySelector('.transition');
@@ -157,6 +241,7 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
 
     //add click response
     el.addEventListener('click', (event) => {
+        removeHamburger();
         // document.querySelector(".transition").classList.remove("peak-in");
         clickHappening = true;
         clearTimeout(timer);
@@ -221,12 +306,14 @@ document.querySelector('.ham-icon').addEventListener('click', (event) => {
 
 
 
-// document.querySelector(".ham-icon .hamburger").addEventListener("mouseover", mouseOver);
 document.querySelector(".hamburger").addEventListener("mouseover", mouseOver);
 document.querySelector(".ham-icon").addEventListener("mouseover", mouseOver);
 document.querySelector(".nav-btn").addEventListener("mouseover", mouseOver);
+document.querySelector(".ghost").addEventListener("mouseover", mouseOver);
 document.querySelector(".nav-btn").addEventListener("mouseleave", mouseLeaveBtns);
 document.querySelector(".ghost").addEventListener("mouseleave", mouseLeaveBtns);
+document.querySelector(".hamburger").addEventListener("mouseleave", mouseLeaveBtns);
+document.querySelector(".ham-icon").addEventListener("mouseleave", mouseLeaveBtns);
 
 
 

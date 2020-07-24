@@ -51,73 +51,7 @@
 
     <div class="all-pages-container scale">
         <!-- ############################################################## -->
-        <div class="summary container">
-            <div class="sum-nav">
-                <div class="sum-picture-box">
-                    <div class="picture-border"></div>
-                    <div class="picture"></div>
-                </div>
-                <!-- <div class="sum-spacer"></div> -->
-                <div class="sum-title">
-                    <div class="white-title">
-                        Company X
-                    </div>
-                    <div class="subtitle">
-                        Subtitle Y
-                    </div>
-                </div>
-                <div class="sum-nav-btns">
-                    <div>Popular Models</div>
-                    <div class="sum-nav-btn">Cisco Systems</div>
-                    <div class="sum-nav-btn">Tesla Inc</div>
-                    <div class="sum-nav-btn">Tesla Inc</div>
-                </div>
-                <div class="sum-collapse-nav" onclick="sumCollapseNav();"></div>
-            </div>
-            <div class="sum-content">
-                <div class="sum-search">
-                    <input class="sum-search-text" placeholder="Search" type="text"></input>
-                    <div class="sum-search-submit"></div>
-                </div>
-                <!-- <div style="height: 55px; width: 100%;"></div> -->
-                <div class="sum-top-half">
-                    <div class="sum-description">
-                        <div class="sum-content-title" style="margin-left: 0px;">
-                            Description
-                        </div>
-                        Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
-                    </div>
-                    
-                    <div class="sum-stats-box-outer">
-                        <div class="sum-stats-box">
-                            <div class="sum-content-title">
-                                Summary Statistics
-                            </div>
-                        </div>
-                        <div class="pie-chart-box">
-                            <!-- Resources -->
-                            <script src="https://www.amcharts.com/lib/4/core.js"></script>
-                            <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-                            <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
-                            <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-                            
-                            
-                            <div id="piechartdiv"></div>
-                            <div id="piechartlegend"></div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div class="sum-content-title">
-                    Operating Performance
-                </div>
-                <div class="graph-box">
-                    <div id="chartdiv"></div>
-                </div>
-            </div>
-        </div>
+        <!%- include('partials/summary'); %>
         <!-- ############################################################## -->
         <div class="fs container active">
             <!-- <div class="statement is">
@@ -143,12 +77,12 @@
                 <div class="logo-box">
                     <img class="logo" src="img/Logo.png" alt="">
                 </div>
-                <div class="fs-nav-item first selected">Home</div>
+                <div class="fs-nav-item home-btn first selected">Home</div>
                 <div class="fs-nav-item">History</div>
                 <div class="fs-nav-item">Balances</div>
                 <div class="fs-nav-item">Cards</div>
                 <div class="fs-nav-item">Recipients</div>
-                <div class="fs-nav-item">Income Statement</div>
+                <div class="fs-nav-item is-btn">Income Statement</div>
                 <div class="fs-nav-item">Balance Sheet</div>
                 <div class="fs-nav-item">Cash Flows</div>
                 <div class="fs-collapse-nav" onclick="fsCollapseNav();"></div>
@@ -179,167 +113,58 @@
                         </div>
                     </div>
                 </div>
-                <div class="fs-table-title">Financial Statement</div>
-                <div class="fs-table-outer">
-                    <table>
-                        <tbody>
-                        <!-- <th>
-                            <td>2015</td>
-                            <td>2016</td>
-                            <td>2017</td>
-                            <td>2018</td>
-                            <td>2019</td>
-                            <td>2020</td>
-                            <td>2021</td>
-                            <td>2022</td>
-                            <td>2023</td>
-                            <td>2024</td>
-                        </th>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>financial statement item</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr> -->
-                        </tbody>
-                    </table>
+                <div class="variable-content">
+                    <!-- <div class="fs-table-title">Financial Statement</div>
+                    <div class="fs-table-outer">
+                        <table>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
+                    </div> -->
+
+
+
+                    <!-- ####################################### -->
+                    <div class="sum-content">
+                        <div class="sum-top-half">
+                            <div class="sum-description">
+                                <div class="sum-content-title" style="margin-left: 0px;">
+                                    Description
+                                </div>
+                                Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
+                            </div>
+                            
+                            <div class="sum-stats-box-outer">
+                                <div class="sum-stats-box">
+                                    <div class="sum-content-title">
+                                        Summary Statistics
+                                    </div>
+                                </div>
+                                <div class="pie-chart-box">
+                                    <!-- Resources -->
+                                    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                                    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                                    <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
+                                    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                                    
+                                    
+                                    <div id="piechartdiv"></div>
+                                    <div id="piechartlegend"></div>
+                                </div>
+                            </div>
+                
+                        </div>
+                
+                
+                        <div class="sum-content-title">
+                            Operating Performance
+                        </div>
+                        <div class="graph-box">
+                            <div id="chartdiv"></div>
+                        </div>
+                    </div>
+                    <!-- ####################################### -->
                 </div>
             </div>
 

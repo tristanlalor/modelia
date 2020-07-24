@@ -76,72 +76,75 @@ function blurSlice(item) {
 }
 
 
-// OpChart #####################################################################################################################################################################################################################################################################################
+// Operating Performance Chart (opchart)#####################################################################################################################################################################################################################################################################################
+export const createOpChart = () => {
+    am4core.useTheme(am4themes_animated);
+    
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+    
+    chart.paddingRight = 0;
+    chart.paddingLeft = 0;
+    
+    var data = [];
+    var open = 100;
+    var close = 250;
+    var difference = close - open;
+    
+    for (var i = 1; i < 120; i++) {
+      open += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 4);
+      close = Math.round(open + Math.random() * 5 + i / 5 - (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2);
+      difference = close - open;
+      data.push({ date: new Date(2018, 0, i), open: open, close: close, difference: difference });
+    }
+    
+    chart.data = data;
+    
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    valueAxis.renderer.labels.template.disabled = true;
+    valueAxis.renderer.grid.template.stroke = "#FFF";
+    valueAxis.renderer.grid.template.strokeDasharray = "3,3";
+    dateAxis.renderer.grid.template.disabled = true;
+    // dateAxis.renderer.grid.template.fill = am4core.color("#FFF");
+    // dateAxis.textColor = am4core.color("#FFF");
+    dateAxis.renderer.labels.template.fill = am4core.color("#FFF");
+    
+    var series = chart.series.push(new am4charts.LineSeries());
+    series.dataFields.dateX = "date";
+    series.dataFields.openValueY = "open";
+    series.dataFields.valueY = "close";
+    series.dataFields.customValue = "difference";
+    
+    
+    
+    
+    // series.tooltipText.adapter.add("text", function(text) {
+    //     return text + "%";
+    //   });
+    series.tooltipText = "Revenue: {openValueY.value} Costs: {valueY.value} profit: {customValue.value}";
+    series.sequencedInterpolation = true;
+    series.fillOpacity = 0.3;
+    series.defaultState.transitionDuration = 500;
+    series.tensionX = 0.8;
+    
+    var series2 = chart.series.push(new am4charts.LineSeries());
+    series2.dataFields.dateX = "date";
+    series2.dataFields.valueY = "open";
+    series2.sequencedInterpolation = true;
+    series2.defaultState.transitionDuration = 500;
+    series2.stroke = chart.colors.getIndex(6);
+    series2.tensionX = 0.8;
+    
+    chart.cursor = new am4charts.XYCursor();
+    chart.cursor.xAxis = dateAxis;
+    chart.cursor.lineX.stroke = am4core.color("#FFF");
+    chart.cursor.lineY.stroke = am4core.color("#FFF");
 
-am4core.useTheme(am4themes_animated);
-
-var chart = am4core.create("chartdiv", am4charts.XYChart);
-chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-
-chart.paddingRight = 0;
-chart.paddingLeft = 0;
-
-var data = [];
-var open = 100;
-var close = 250;
-var difference = close - open;
-
-for (var i = 1; i < 120; i++) {
-  open += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 4);
-  close = Math.round(open + Math.random() * 5 + i / 5 - (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2);
-  difference = close - open;
-  data.push({ date: new Date(2018, 0, i), open: open, close: close, difference: difference });
 }
-
-chart.data = data;
-
-var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.tooltip.disabled = true;
-valueAxis.renderer.labels.template.disabled = true;
-valueAxis.renderer.grid.template.stroke = "#FFF";
-valueAxis.renderer.grid.template.strokeDasharray = "3,3";
-dateAxis.renderer.grid.template.disabled = true;
-// dateAxis.renderer.grid.template.fill = am4core.color("#FFF");
-// dateAxis.textColor = am4core.color("#FFF");
-dateAxis.renderer.labels.template.fill = am4core.color("#FFF");
-
-var series = chart.series.push(new am4charts.LineSeries());
-series.dataFields.dateX = "date";
-series.dataFields.openValueY = "open";
-series.dataFields.valueY = "close";
-series.dataFields.customValue = "difference";
-
-
-
-
-// series.tooltipText.adapter.add("text", function(text) {
-//     return text + "%";
-//   });
-series.tooltipText = "Revenue: {openValueY.value} Costs: {valueY.value} profit: {customValue.value}";
-series.sequencedInterpolation = true;
-series.fillOpacity = 0.3;
-series.defaultState.transitionDuration = 500;
-series.tensionX = 0.8;
-
-var series2 = chart.series.push(new am4charts.LineSeries());
-series2.dataFields.dateX = "date";
-series2.dataFields.valueY = "open";
-series2.sequencedInterpolation = true;
-series2.defaultState.transitionDuration = 500;
-series2.stroke = chart.colors.getIndex(6);
-series2.tensionX = 0.8;
-
-chart.cursor = new am4charts.XYCursor();
-chart.cursor.xAxis = dateAxis;
-chart.cursor.lineX.stroke = am4core.color("#FFF");
-chart.cursor.lineY.stroke = am4core.color("#FFF");
+createOpChart();
 
 // end ##################################################################################################################################################################################
 
