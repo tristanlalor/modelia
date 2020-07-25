@@ -10,6 +10,11 @@ let clickHappening = false;
 let activeClass = "fs";
 
 
+setTimeout(() => {
+    document.querySelector('.load-screen').style.opacity = '0';
+},100);
+
+
 
 
 

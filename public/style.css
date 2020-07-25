@@ -5,14 +5,28 @@
     transition: .4s cubic-bezier(.95,.0,.05,1);
     animation-duration: .4s;
 }
+.load-screen {
+    position: fixed;
+    opacity: 1;
+    background-color: rgb(47, 68, 69);
+    background-image: url(img/Logo_large.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    width: 100vw;
+    height: 100vh;
+    transition: 1s;
+    z-index: 1;
+}
 
 body {
     margin: 0px;
     height: 100vh;
     width: 100vw;
     /* background-image: linear-gradient(120deg, rgb(243, 177, 179) , rgb(204, 146, 148)); */
-    /* background-image: url(img/bkg.jpg); */
-    background-color: rgb(195, 163, 83);
+    background-image: url(img/bkg.jpg);
+    /* background-color: rgba(195, 163, 83, 1); */
     /* filter: blur(5px); */
     backdrop-filter: blur(5px) brightness(80%);
     background-size: cover;
@@ -951,12 +965,29 @@ table tr:last-child td {
     background-color: beige;
 }
 .abt {
+    overflow: scroll;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-size: 16pt;
+}
+.abt-header {
     opacity: 1;
     background-color: rgb(47, 68, 69);
     background-image: url(img/Logo_large.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+.abt-body {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background: rgb(189, 163, 95);
+    padding: 100px;
+    padding-top: 200px;
+    padding-bottom: 200px;
 }
 .dev {
     opacity: 1;
