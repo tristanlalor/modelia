@@ -8,7 +8,13 @@
 .load-screen {
     position: fixed;
     opacity: 1;
-    background-color: rgb(47, 68, 69);
+
+    /* blue */
+    /* background-color: rgb(47, 68, 69); */
+
+    /* gray */
+    background-color: rgb(48, 46, 47);
+
     background-image: url(img/Logo_large.png);
     background-position: center;
     background-size: contain;
@@ -25,10 +31,16 @@ body {
     height: 100vh;
     width: 100vw;
     /* background-image: linear-gradient(120deg, rgb(243, 177, 179) , rgb(204, 146, 148)); */
+
+    /* pink */
     background-image: url(img/bkg.jpg);
+
+    /* yellow */
     /* background-color: rgba(195, 163, 83, 1); */
+    
     /* filter: blur(5px); */
-    backdrop-filter: blur(5px) brightness(80%);
+    backdrop-filter: blur(5px) brightness(80%) hue-rotate(45deg);
+    /* backdrop-filter: blur(5px) brightness(80%); */
     background-size: cover;
     overflow: hidden;
 }
@@ -700,29 +712,51 @@ body {
     height: 100vh;
     /* background: rgb(43, 101, 113); */
     /* background: rgb(45, 68, 68); */
-    background-color: rgb(26, 67, 69);
+
+    /*blue*/
+    /* background-color: rgb(26, 67, 69);  */
+    
+    /*grey*/
+    background-color: rgb(48, 46, 47); 
 }
 .fs-collapse-nav {
     position: absolute;
-    height: 70px;
-    width: 16px;
-    top: 50%;
+    height: 35px;
+    width: 20px;
+    bottom: 0;
     right: 0;
-    background-color: rgb(148, 217, 224);
+    margin: 15px;
+    margin-top: -15px;
+
+    background-color: transparent;
+
+    /* yellow */
+    /* background-color: rgb(152, 131, 76); */
+
+    /* beige */
+    /* background-color: rgb(156, 143, 123); */
+
+    /* pink */
+    /* background-color: rgb(202, 136, 148); */
+
     background-image: url(img/arrow.png);
-    background-size: 80% 40%;
+    background-size: 80% 80%;
     background-position: 75% 50%;
     background-repeat: no-repeat;    
-    transform: translate(50%, -50%) rotate(180deg);
-    border-radius: 15px;
+    transform: rotate(180deg);
+    /* border-radius: 15px; */
     z-index: 999 !important;
+    outline: solid rgba(255,255,255,0) 0px;
 }
 .fs-collapse-nav-collapsed {
-    transform: translate(100%, -50%);
-    transform-origin: 50% 50%;
+    transform: translate(calc(100% + 30px));
+    /* transform-origin: 50% 50%; */
+    
+    filter: invert(1);
 }
 .fs-collapse-nav:hover {
-    background-color: rgb(96, 194, 245);
+    outline: solid rgba(255,255,255,1) 1px;
+    /* background-color: rgb(96, 194, 245); */
 }
 .fs-nav-item {
     box-sizing: border-box;
@@ -741,7 +775,7 @@ body {
 }
 .fs-nav .selected {
     /* background: rgb(33, 79, 91); */
-    background: rgb(29, 44, 44);
+    background: rgb(31, 29, 30);
     border-radius: 6px;
 
 }
@@ -962,7 +996,7 @@ table tr:last-child td {
 
 .account {
     opacity: 1;
-    background-color: beige;
+    background-color: rgb(48, 46, 47);
 }
 .abt {
     overflow: scroll;
@@ -972,7 +1006,11 @@ table tr:last-child td {
 }
 .abt-header {
     opacity: 1;
-    background-color: rgb(47, 68, 69);
+    /* blue */
+    /* background-color: rgb(47, 68, 69); */
+
+    /* gray */
+    background-color: rgb(48, 46, 47);
     background-image: url(img/Logo_large.png);
     background-position: center;
     background-size: contain;
@@ -984,17 +1022,32 @@ table tr:last-child td {
     display: flex;
     align-content: center;
     justify-content: center;
-    background: rgb(189, 163, 95);
+
+    /* yellow */
+    /* background: rgb(189, 163, 95); */
+
+    /* beige */
+    background-color: rgb(156, 143, 123);
+
+    /* pink */
+    /* background: rgb(165, 121, 129); */
+
     padding: 100px;
     padding-top: 200px;
     padding-bottom: 200px;
+}
+.abt-body:nth-child(3), .abt-body:nth-child(5) {
+    /* gray */
+    background-color: rgb(48, 46, 47);
 }
 .dev {
     opacity: 1;
     /* background: white; */
     background-color: rgb(60, 58, 59);
     /* overflow: scroll; */
-    overflow: hidden;
+    overflow: scroll;
+    display: flex;
+    
 }
 .dev * {
     transition: all ease-in-out 1s;
@@ -1086,23 +1139,26 @@ table tr:last-child td {
 
 }
 .white-box {
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /* overflow-y: visible; */
+    /* overflow-x: hidden; */
     background-color: rgb(60, 58, 59);
     /* border: solid red 1px; */
     position: absolute;
     width: 490px;
-    height: 100%;
+    min-height: 100%;
     text-align: center;
     margin-left: calc(50% - 490px / 2);
     transition: all ease-in-out 1s;
 }
 .gray-box {
+    overflow: auto;
+    align-items: stretch;
+    /* display: table-cell; */
     position: relative;
     float: right;
-    width: 0px;
+    /* width: 0px; */
     /* right: 0px; */
-    height: 100%;
+    min-height: 100%;
     line-height: 1.75em;
     background-color: rgb(48, 46, 47);
     /* ORIGINAL COLOR */
