@@ -9,6 +9,64 @@ let scaling;
 let clickHappening = false;
 let activeClass = "fs";
 
+
+
+
+
+
+const newClickFunction = (e) => {
+    console.log("Mouse Over");
+                toggleHamburger();
+                !menuOpen ? document.querySelector('.page-selector').style.transform = `translateX(0)` :         document.querySelector('.page-selector').style.transform = `translateX(calc(${lastTranslateAmt}vw + 2vw + 102.5px))`;
+                ;
+                if (document.querySelector('.active').classList.contains("scale")) {
+                    // window.requestAnimationFrame(() => {
+                    //     document.querySelector('.all-pages-container').classList.add("scale");
+                    //     window.requestAnimationFrame(() => {
+                    //         document.querySelector('.all-pages-container').classList.remove("scale");
+                    //     });
+                    // });
+                    Array.prototype.slice.call(document.querySelectorAll(".container")).forEach((el, index) => {
+                        el.classList.remove("scale");
+                    });
+                    console.log("CREATING EVENT LISTENER");
+                    document.querySelector(".all-pages-container").addEventListener("click", newClickFunction);
+
+                    // document.querySelector('.all-pages-container').style.transform = "scale(.8)";
+                    Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
+                        let scaleFactor = (index) * 25;
+                        let ele = document.querySelector(`.btn-${index+1}`);
+                        ele.style.transform = `translateX(calc(${scaleFactor}vw + 2vw))`;
+                        ele.style.opacity = 1;
+                        setTimeout(() => {
+                            ele.style.pointerEvents = 'auto';
+                        }, 400)
+                        document.querySelector(`.ghost`).style.transform = "scaleX(6.2)";
+                    });
+                } else {
+                    // document.querySelector('.all-pages-container').style.transform = "scale(1)";
+                    // window.requestAnimationFrame(() => {
+                    //     document.querySelector('.all-pages-container').classList.remove("scale");
+                    //     window.requestAnimationFrame(() => {
+                    //         document.querySelector('.all-pages-container').classList.add("scale");
+                    //     });
+                    console.log("DESTROYING EVENT LISTENER");
+                        document.querySelector(".all-pages-container").removeEventListener("click", newClickFunction);
+
+                    // });
+                        Array.prototype.slice.call(document.querySelectorAll(".container")).forEach((el, index) => {
+                            el.classList.add("scale");
+                        });
+                        Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
+                            let ele = document.querySelector(`.btn-${index+1}`)
+                            ele.style.transform = `translateX(0px)`;
+                            ele.style.opacity = 0;
+                            ele.style.pointerEvents = 'none';
+                            document.querySelector(`.ghost`).style.transform = "scaleX(1)";
+                        });
+                };
+}
+
 let transition = () => {
     // document.querySelector(".transition").classList.add("slide-in");
     // setTimeout(() => {
@@ -62,9 +120,9 @@ let mouseLeaveBtns = (event) => {
         console.log('mouseleave');
         let scalePage = (e) => {
             if (!docked){
-                if (!document.querySelector('.all-pages-container').classList.contains("scale")) {
-                    document.querySelector('.all-pages-container').classList.add("scale");
-                }
+                // if (!document.querySelector('.all-pages-container').classList.contains("scale")) {
+                //     document.querySelector('.all-pages-container').classList.add("scale");
+                // }
             }
             if (e) e.target.removeEventListener(e.type, scalePage);
         }
@@ -83,11 +141,14 @@ let mouseLeaveBtns = (event) => {
         removeHamburger();
     }
 }
-
+let menuOpen = false;
 let toggleHamburger = (event) => {
+    menuOpen = !menuOpen;
+    console.log(`menuOpen = ${menuOpen}`);
     document.querySelector('.ham-icon').classList.toggle('hamburger-active')
 };
 let removeHamburger = (event) => {
+    menuOpen = false;
     document.querySelector('.ham-icon').classList.remove('hamburger-active')
 };
 let addHamburger = (event) => {
@@ -223,7 +284,7 @@ transitionElement.addEventListener('transitionend', (event) => {
     // };
 })
 
-
+let lastTranslateAmt = 0;
 // set up nav btns
 Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
     let className;
@@ -231,17 +292,40 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
 
     //add mouseenter response
     el.addEventListener('mouseenter', mouseEnter);
-    el.addEventListener('mouseenter', () => {
+    el.addEventListener('mouseenter', (event) => {
         // document.querySelector('.transition').style.backgroundColor = colors[index];
         // document.querySelector('.transition').style.backgroundColor = 'rgb(0,0,0)';
+        let translateAmt = 100 * index;
+        
+        document.querySelector('.all-pages-container').style.transform = `translateX(-${translateAmt}vw)`;
+        
+        let translateAmtSelector = (index) * 25;
+        lastTranslateAmt = translateAmtSelector;
+        document.querySelector('.page-selector').style.transform = `translateX(calc(${translateAmtSelector}vw + 2vw + 102.5px))`;
+
+        Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
+            el.classList.remove('btn-active');
+        });
+        event.target.classList.add('btn-active');
+
+
+
     });
     
     //add mouseout response
-    el.addEventListener("mouseleave", mouseLeaveBtns);
+    // el.addEventListener("mouseleave", mouseLeaveBtns);
 
     //add click response
     el.addEventListener('click', (event) => {
+        console.log("DESTROYING EVENT LISTENER");
+                        document.querySelector(".all-pages-container").removeEventListener("click", newClickFunction);
+        let translateAmt = 100 * index;
+        document.querySelector('.all-pages-container').style.transform = `translateX(-${translateAmt}vw)`;
         removeHamburger();
+        document.querySelector('.page-selector').style.transform = `translateX(0)`;
+        Array.prototype.slice.call(document.querySelectorAll(".container")).forEach((el, index) => {
+            el.classList.add("scale");
+        });
         // document.querySelector(".transition").classList.remove("peak-in");
         clickHappening = true;
         clearTimeout(timer);
@@ -259,12 +343,13 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
 
         //do the transition
         // transition(); // old
-        animateTransition();
+        // animateTransition();
 
         //if page is not yet full screen, go to full screen
-        if (!document.querySelector('.all-pages-container').classList.contains("scale")) {
-            document.querySelector('.all-pages-container').classList.add("scale");
-        }
+        // if (!document.querySelector('.all-pages-container').classList.contains("scale")) {
+        //     document.querySelector('.all-pages-container').classList.add("scale");
+        // }
+
 
         //create timer for when page is fully covered by transition (200ms)
         className = Array.prototype.slice.call(document.querySelectorAll(".container"))[index].classList[0];
@@ -289,31 +374,37 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
     });
 });
 let docked = false;
-//set up full-screen btn
-document.querySelector('.ham-icon').addEventListener('click', (event) => {
-    (docked) ? docked = false : docked = true;
-    if (!docked) {
-        document.querySelector('.all-pages-container').classList.add("scale");
-    }
-    Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
-        let ele = document.querySelector(`.btn-${index+1}`)
-        ele.style.transform = `translateX(0px)`;
-        ele.style.opacity = 0;
-        ele.style.pointerEvents = 'none';
-        document.querySelector(`.ghost`).style.transform = "scaleX(1)";
-    });
-});
+
+
+// //set up full-screen btn
+//OLD CLICK FUNCTION
+// document.querySelector('.ham-icon').addEventListener('click', (event) => {
+//     (docked) ? docked = false : docked = true;
+//     if (!docked) {
+//         document.querySelector('.all-pages-container').classList.add("scale");
+//     }
+//     Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
+//         let ele = document.querySelector(`.btn-${index+1}`)
+//         ele.style.transform = `translateX(0px)`;
+//         ele.style.opacity = 0;
+//         ele.style.pointerEvents = 'none';
+//         document.querySelector(`.ghost`).style.transform = "scaleX(1)";
+//     });
+// });
 
 
 
-document.querySelector(".hamburger").addEventListener("mouseover", mouseOver);
-document.querySelector(".ham-icon").addEventListener("mouseover", mouseOver);
-document.querySelector(".nav-btn").addEventListener("mouseover", mouseOver);
-document.querySelector(".ghost").addEventListener("mouseover", mouseOver);
-document.querySelector(".nav-btn").addEventListener("mouseleave", mouseLeaveBtns);
-document.querySelector(".ghost").addEventListener("mouseleave", mouseLeaveBtns);
-document.querySelector(".hamburger").addEventListener("mouseleave", mouseLeaveBtns);
-document.querySelector(".ham-icon").addEventListener("mouseleave", mouseLeaveBtns);
+document.querySelector(".hamburger").addEventListener("click", newClickFunction);
+document.querySelector(".ham-icon").addEventListener("click", newClickFunction);
+document.querySelector(".ghost").addEventListener("click", newClickFunction);
+// document.querySelector(".hamburger").addEventListener("mouseover", mouseOver);
+// document.querySelector(".ham-icon").addEventListener("mouseover", mouseOver);
+// document.querySelector(".nav-btn").addEventListener("mouseover", mouseOver);
+// document.querySelector(".ghost").addEventListener("mouseover", mouseOver);
+// document.querySelector(".nav-btn").addEventListener("mouseleave", mouseLeaveBtns);
+// document.querySelector(".ghost").addEventListener("mouseleave", mouseLeaveBtns);
+// document.querySelector(".hamburger").addEventListener("mouseleave", mouseLeaveBtns);
+// document.querySelector(".ham-icon").addEventListener("mouseleave", mouseLeaveBtns);
 
 
 

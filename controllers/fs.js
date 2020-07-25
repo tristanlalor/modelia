@@ -48,6 +48,8 @@ let fsCollapseNav = () => {
     document.querySelector('.fs-collapse-nav').classList.toggle('fs-collapse-nav-collapsed');
 }
 
+document.querySelector('.fs-collapse-nav').addEventListener('click', fsCollapseNav);
+
 
 //Add selected class to fs-nav-items
 document.querySelector('.fs-nav').addEventListener('click', e => {

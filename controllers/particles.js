@@ -20,8 +20,8 @@ png.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAA
 
 
 //add again if ever able to interact with smaller window
-document.querySelector('.all-pages-container').addEventListener('transitionend', e => {
-    if (document.querySelector('.all-pages-container').classList.contains('scale')) {
+document.querySelector('.container').addEventListener('transitionend', e => {
+    if (document.querySelector('.container').classList.contains('scale')) {
         scale = 1;
     } else {
         scale = 1.25;
