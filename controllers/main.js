@@ -9,10 +9,10 @@ let scaling;
 let clickHappening = false;
 let activeClass = "fs";
 
-
-setTimeout(() => {
-    document.querySelector('.load-screen').style.opacity = '0';
-},100);
+//remove load screen
+// setTimeout(() => {
+//     document.querySelector('.load-screen').style.opacity = '0';
+// },100);
 
 
 
