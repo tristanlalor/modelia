@@ -1260,13 +1260,16 @@ table tr:last-child td {
     width: 200px;
     color: white;
     border-radius: 15px;
+    transition: 0s;
 }
 .resume a:hover {
     font-weight: bold;
+    transition: 0s;
 }
 .resume a:link,
 .resume a:visited,
 .resume a:active {
+    transition: 0s;
     color: white;
     text-decoration: none;
 }
