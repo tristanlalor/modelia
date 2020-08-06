@@ -11,27 +11,71 @@ let apiCallTest = async () => {
     //     }
     // }
 
-//
+    //price data
+    // const result = await fetch("https://financialmodelingprep.com/api/v3/historical-price-full/TSLA?apikey=fe92325136d390238534104e6c91668f");
+    // const data = await result.json();
+    // console.log(data);
+    
+    // key metrics
+    // const result = await fetch("https://financialmodelingprep.com/api/v3/key-metrics/TSLA?apikey=fe92325136d390238534104e6c91668f");
+    // const data = await result.json();
+    // console.log(data);
 
-    // const result = await fetch("https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/AAPL/income-statement", {
+
+
+  //   const result = await fetch("https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/AAPL/income-statement", {
 	// "method": "GET",
 	// "headers": {
 	// 	"x-rapidapi-host": "yahoo-finance15.p.rapidapi.com",
 	// 	"x-rapidapi-key": "722436d3b0msh92e54b02280f45fp1be6abjsnfdea59440cad"
 	//     }
-    // });
-    // const data = await result.json();
-    // console.log(data);
-    // for (var prop in data['incomeStatementHistory']['incomeStatementHistory']['0']) {
-    //     if (Object.prototype.hasOwnProperty.call(data['incomeStatementHistory']['incomeStatementHistory']['0'], prop)) {
-    //         // do stuff
-    //         console.log(prop);
-    //     }
-    // }
+  //   });
+  //   const data = await result.json();
+  //   console.log(data);
+  //   for (var prop in data['incomeStatementHistory']['incomeStatementHistory']['0']) {
+  //       if (Object.prototype.hasOwnProperty.call(data['incomeStatementHistory']['incomeStatementHistory']['0'], prop)) {
+  //           // do stuff
+  //           console.log(prop);
+  //       }
+  //   }
 }
 apiCallTest();
 
 
+const apiKey = "fe92325136d390238534104e6c91668f";
+
+export const generalFetch = async (dataset, ticker) => {
+  try {
+    const result = await fetch(`https://financialmodelingprep.com/api/v3/${dataset}/${ticker}?apikey=${apiKey}`);
+    const data = await result.json();
+    return data;
+  } catch (error){
+    console.log(`SERVER ERROR: ${error}`);
+  }
+}
+
+export const fetchSearchResults = async (query) => {
+  const result = await fetch(`https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=${apiKey}`);
+  const data = await result.json();
+  console.log(data);
+  return data;
+}
+
+export const fetchPrice = async (ticker) => {
+    // price data
+    let dataset = "historical-price-full";
+    const data = await generalFetch(dataset, ticker);
+    console.log(data);
+    return data;
+}
+
+export const fetchIS = async (ticker) => {
+    // price data
+    let dataset = "income-statement";
+    const data = await generalFetch(dataset, ticker);
+    console.log(data);
+    return data;
+}
 
 export const sampleData = [
     {
@@ -409,25 +453,6 @@ export const sampleData = [
 //     count++;
 // }
 
-export const addYearData = (obj) => {
-    const table = document.querySelector('.fs-table-outer table');
-    let headerRow = document.querySelector('.fs-table-outer table thead tr')
-    let cell = headerRow.insertCell(-1);
-    cell.innerHTML = `${obj['period']} ${obj['fillingDate']}`;
-    let rowNum = -4;
-    let count = 0;
-    for (var prop in obj) {
-        if (count > 4 && count <= 30) {
-            if (Object.prototype.hasOwnProperty.call(sampleData['0'], prop)) {
-                // do stuff
-                let row = table.rows[rowNum];
-                let newCell = row.insertCell(-1);
-                newCell.innerHTML = `${obj[prop]}`;
-            }
-        }
-        count++;
-        rowNum++;
-    }
-}
+
 // addYearData(sampleData['1']);
 // addYearData(sampleData['2']);

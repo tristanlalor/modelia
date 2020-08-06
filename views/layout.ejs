@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
+    <link href="../style.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Raleway:wght@200;300;500&display=swap" rel="stylesheet">    
     <link type="text/css" rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
@@ -16,7 +16,49 @@
     <!-- </div> -->
 
 
-
+    <script>
+let containerQueryListener = () => {
+            // Only run if ResizeObserver is supported.
+            if ('ResizeObserver' in self) {
+                // Create a single ResizeObserver instance to handle all
+                // container elements. The instance is created with a callback,
+                // which is invoked as soon as an element is observed as well
+                // as any time that element's size changes.
+                var ro = new ResizeObserver(function(entries) {
+                // Default breakpoints that should apply to all observed
+                // elements that don't define their own custom breakpoints.
+                var defaultBreakpoints = {SM: 384, MD: 576, LG: 768, XL: 960};
+            
+                entries.forEach(function(entry) {
+                    // If breakpoints are defined on the observed element,
+                    // use them. Otherwise use the defaults.
+                    var breakpoints = entry.target.dataset.breakpoints ?
+                        JSON.parse(entry.target.dataset.breakpoints) :
+                        defaultBreakpoints;
+            
+                    // Update the matching breakpoints on the observed element.
+                    Object.keys(breakpoints).forEach(function(breakpoint) {
+                    var minWidth = breakpoints[breakpoint];
+                    if (entry.contentRect.width >= minWidth) {
+                        entry.target.classList.add(breakpoint);
+                    } else {
+                        entry.target.classList.remove(breakpoint);
+                    }
+                    });
+                });
+                });
+            
+                // Find all elements with the `data-observe-resizes` attribute
+                // and start observing them.
+                var elements = document.querySelectorAll('[data-observe-resizes]');
+                for (var element, i = 0; element = elements[i]; i++) {
+                ro.observe(element);
+                }
+            }
+        };
+        containerQueryListener();
+        // document.querySelector('.profile-btn').addEventListener('click', containerQueryListener());
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -28,5 +70,8 @@
     <script type="module" src="/particles.js"></script>
     <script type="module" src="/summary.js"></script>
     <script type="module" src="/scrollMagic.js"></script>
+    <script type="module" src="/candlesticks.js"></script>
+    <script type="module" src="/tables.js"></script>
+    <script type="module" src="/top.js"></script>
 </body>
 </html>

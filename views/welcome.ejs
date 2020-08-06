@@ -74,15 +74,17 @@
                 <div class="logo-box">
                     <img class="logo" src="img/Logo.png" alt="">
                 </div>
-                <div class="fs-nav-item home-btn first selected">Home</div>
-                <div class="fs-nav-item">History</div>
-                <div class="fs-nav-item">Balances</div>
-                <div class="fs-nav-item">Cards</div>
-                <div class="fs-nav-item">Recipients</div>
+                <div class="fs-nav-item profile-btn first selected">Profile</div>
+                <div class="fs-nav-item candlestick-btn">Price Analysis</div>
+                <div class="fs-nav-item price-data-btn">Price Data</div>
+                <div class="fs-nav-item stats-btn">Statistics</div>
+                <div class="fs-nav-item ratios-btn">Ratios</div>
+                <div class="fs-nav-item growth-btn">Growth</div>
+                Financials
                 <div class="fs-nav-item is-btn">Income Statement</div>
-                <div class="fs-nav-item">Balance Sheet</div>
-                <div class="fs-nav-item">Cash Flows</div>
-                <div class="fs-collapse-nav";"></div>
+                <div class="fs-nav-item bs-btn">Balance Sheet</div>
+                <div class="fs-nav-item cfs-btn">Cash Flows</div>
+                <div class="fs-collapse-nav"></div>
             </div>
             <div class="fs-content">
                 <div class="top">
@@ -119,38 +121,76 @@
                             </tbody>
                         </table>
                     </div> -->
-
-
-
                     <!-- ####################################### -->
-                    <div class="sum-content">
-                        <!-- <div class="sum-top-half">
-                            <div class="sum-description">
-                                <div class="sum-content-title" style="margin-left: 0px;">
-                                    Description
-                                </div>
+                    <!-- <div class="candlestick-content">
+
+                    </div> -->
+                    <!-- ####################################### -->
+                    <div class="sum-content" data-observe-resizes>
+                        
+                        <div class="sum-grid">
+                            <div class="grid-item grid-item-1">
+                                Symbol:
+                                Price: 
+                                52wk high:
+                                52wk low:
+                            </div>
+                            <div class="grid-item grid-item-2">
+                                <h1>Description</h1>
                                 Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
                             </div>
+                            <div class="grid-item grid-item-3">
+                                lastDiv:
+                                Beta: 
+                                volAvg: 
+                                Exchange: 
+                                Industry:
+                                Sector:
+                                CEO:
+                            </div>
+                            <div class="grid-item grid-item-4">
+                                <h1>Rating</h1> - Strong Buy
+                                Overall: 5
+                                P/B: 5
+                                ROA: 5
+                                DCF: 3
+                                P/E: 5
+                                ROE: 5
+                                D/E: 3
+                            </div>
+                            <div class="grid-item grid-item-5">
+                                <!-- Styles -->
+                                <style>
+                            #pricechart {
+                            width: 100%;
+                            height: 100%;
+                            max-width: 100%;
+                            }
+                            #pricechart * {
+                                transition: 0s;
+                            }
                             
-                            <div class="sum-stats-box-outer">
-                                <div class="sum-stats-box">
-                                    <div class="sum-content-title">
-                                        Summary Statistics
-                                    </div>
-                                </div> -->
-                                <!-- <div class="pie-chart-box"> -->
-                                    <!-- Resources -->
-                                    
-                                    
-                                    
-                                    <!-- <div id="piechartdiv"></div>
-                                    <div id="piechartlegend"></div> -->
-                                <!-- </div> -->
-                            <!-- </div> -->
-                
-                        <!-- </div> -->
-                
-                
+                            #controls {
+                            overflow: hidden;
+                            padding-bottom: 3px;
+                            }
+                                </style>
+    
+                                <!-- Resources -->
+                                <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+                                <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+                                <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
+                                <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    
+    
+    
+                                <!-- HTML -->
+                                <div id="controls"></div>
+                                <div id="pricechart"></div>
+                            </div>
+                        </div>
+
+
                         <div class="sum-content-title">
                             <!-- Operating Performance -->
                         </div>

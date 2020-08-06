@@ -1,4 +1,4 @@
-import * as graphlib from '/graphs.js';
+// import * as graphlib from '/graphs.js';
 
 
 
@@ -13,7 +13,6 @@ let activeClass = "fs";
 // setTimeout(() => {
 //     document.querySelector('.load-screen').style.opacity = '0';
 // },100);
-
 
 
 
@@ -168,52 +167,6 @@ let removeElement = (element) => {
     element.parentNode.removeChild(element);
 }
 
-
-//add summaary content to variable content div
-document.querySelector('.home-btn').addEventListener('click', () => {
-    document.querySelector('.variable-content').innerHTML = `
-    <div class="sum-content">
-        <div class="sum-top-half">
-            <div class="sum-description">
-                <div class="sum-content-title" style="margin-left: 0px;">
-                    Description
-                </div>
-                Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
-            </div>
-            
-            <div class="sum-stats-box-outer">
-                <div class="sum-stats-box">
-                    <div class="sum-content-title">
-                        Summary Statistics
-                    </div>
-                </div>
-                <div class="pie-chart-box">
-                    <!-- Resources -->
-                    <script src="https://www.amcharts.com/lib/4/core.js"></script>
-                    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-                    <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
-                    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-                    
-                    
-                    <div id="piechartdiv"></div>
-                    <div id="piechartlegend"></div>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="sum-content-title">
-            Operating Performance
-        </div>
-        <div class="graph-box">
-            <div id="chartdiv"></div>
-        </div>
-    </div>
-    `;
-    graphlib.createOpChart();
-
-});
 
 
 
