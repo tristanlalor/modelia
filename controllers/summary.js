@@ -2,6 +2,7 @@ import * as graphlib from '/graphs.js';
 import * as APIHandler from '/apiHandler.js';
 
 export let symbol = "AAPL";
+export let relevantQuery = "";
 
 //############################################################
 //Symbol Handler
@@ -14,67 +15,90 @@ export let symbol = "AAPL";
 //     });
 // }
 const resultClicked = (ticker) => {
+    document.querySelector('.search-icon').style.transform = "rotate(90deg)";
+    document.querySelector('.loading img').style.opacity = 0;
     document.querySelector('.fs-search-results').innerHTML = "";
     localStorage.clear();
     localStorage.setItem('symbol', ticker);
     symbol = ticker;
+    removeEventHandlers();
     topInit();
     console.log(`New Ticker is ${ticker}`);
+}
+const removeEventHandlers = () => {
+    console.log("destroying event handlers");
+    document.removeEventListener('keyup', keyUpEventHandler);
+    document.removeEventListener('click', focusOutClick);
+    // document.querySelector('.fs-search-text').removeEventListener('focus', focusEventHandler);
+}
+const focusOutClick = (event) => {
+    document.querySelector('.loading img').style.opacity = 0;
+    console.log(event.target.classList[0]);
+    if (event.target.classList[0] != "fs-search-text" && document.activeElement.classList[0] != "fs-search-text") {
+        document.querySelector('.search-icon').style.transform = "none";
+        document.querySelector('.fs-search-results').innerHTML = "";
+        removeEventHandlers();
+    }
 }
 window.resultClicked = resultClicked;
 
 let createSearchResultHTML = (companyName, ticker) => {
     let searchResult = `
-            <div class="fs-search-result" onclick="resultClicked(this.children[1].innerHTML.trim()); console.log('CLICK')">
-                <div>
-                    ${companyName}
-                </div>
+            <div class="fs-search-result" onclick="resultClicked(this.children[0].innerHTML.trim()); console.log('CLICK')">
                 <div>
                     ${ticker}
+                </div>
+                <div>
+                    ${companyName}
                 </div>
             </div>
     `;
     return searchResult;
 }
+const keyUpEventHandler = async () => {
+    console.log("keypress detected");
+        if (document.querySelector('.fs-search-text').value != "") {
+            //add loading icon
+            //afterstart fs-search-results
+            // if (document.querySelector('.loading') == null) {
+            //     document.querySelector('.fs-search-results').insertAdjacentHTML('afterbegin', '<div class="loading"><img src="img/loader.svg"></div>');
+            // }
+            if (document.querySelector('.loading img').style.opacity == 0) {
+                document.querySelector('.loading img').style.opacity = 1;
+            }
+            let query = document.querySelector('.fs-search-text').value;
+            console.log("short circuiting other queries");
+            relevantQuery = query;
+            let searchResultsData = await APIHandler.fetchSearchResults(query);
+            // let searchResults = `<div class="fs-search-results">`;
+            let searchResults = "";
+            searchResultsData.forEach((el, index) => {
+                let searchResult = createSearchResultHTML(el.name, el.symbol);
+                searchResults += searchResult;
+            });
+            if (searchResultsData.length == 0) {
+                searchResults = `
+                    <div class="fs-search-result">
+                        <div>No results</div>
+                    </div>
+            `
+            }
+            if (query == relevantQuery) {
+                document.querySelector('.fs-search-results').innerHTML = searchResults;
+                document.querySelector('.loading img').style.opacity = 0;
+            }
 
+        }
+}
+const focusEventHandler = () => {
+    console.log("focus detected");
+    document.querySelector('.search-icon').style.transform = "rotate(90deg)";
+    document.addEventListener('keyup', keyUpEventHandler);
+    document.addEventListener('click', focusOutClick);
+}
 const searchHandler = () => {
     //addEventListener => when fs-search-text is in focus, show search results
-    document.querySelector('.fs-search-text').addEventListener('focus', () => {
-        console.log("focus detected");
-        document.addEventListener('keydown', async () => {
-            console.log("keypress detected");
-            if (document.querySelector('.fs-search-text').value != "") {
-                console.log("value not null");
-                let query = document.querySelector('.fs-search-text').value;
-                let searchResultsData = await APIHandler.fetchSearchResults(query);
-                // let searchResults = `<div class="fs-search-results">`;
-                let searchResults = "";
-                searchResultsData.forEach((el, index) => {
-                    let searchResult = createSearchResultHTML(el.name, el.symbol);
-                    searchResults += searchResult;
-                });
-                // searchResults += "</div>";
-                // document.querySelector('.fs-search-box').insertAdjacentHTML('beforeend', searchResults);
-                document.querySelector('.fs-search-results').innerHTML = searchResults;
-
-            }
-        });
-    });
-    // document.querySelector('.fs-search-text').addEventListener('focusout', () => {
-    //     setTimeout(() => {
-    //         document.querySelector('.fs-search-results').innerHTML = "";
-    //     }, 100);
-    // });
-
-
-    //if search input is in focus and keypress event and fs-search-text != null
-        //query = fs-search-text.value
-        //query api
-        //forEach result, create string to add
-
-        //populate results (with onclick function)
-    // document.querySelector('.fs-search-results').innerHTML = searchResults;
-    // document.querySelector('.fs-search-box').insertAdjacentHTML('beforeend', searchResults);
+    document.querySelector('.fs-search-text').addEventListener('focus', focusEventHandler);
 }
 
 //############################################################
@@ -144,13 +168,71 @@ export const topInit = async () => {
     await getProfileData();
     await getQuoteData();
     await getRatingData();
-    if (profileData['0'] != undefined) {
-        let topContent = `
-            <div class="fs-search-box">
-                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
+    const oldSearch = `
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
                     <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
                     </svg>
                 <input class="fs-search-text" placeholder="Search Companies" type="text"></input>
+                <div class="loading"><img src="img/loader2.svg"></div>
+    `;
+    const newSearch = `
+    <div class="search">
+    <div class="icon">
+        <span>
+            <svg viewBox="0 0 30 30">
+                <path d="M3,3 L37,37"></path>
+            </svg>
+        </span>
+    </div>
+    <div class="field">
+        <input class="fs-search-text" type="text" placeholder="Search companies...">
+    </div>
+</div>
+    `;
+//###############
+//(from codepen)
+$(document).ready(function() {
+
+    $('.search').each(function() {
+        var self = $(this);
+        var div = self.children('.field');
+        var placeholder = div.children('input').attr('placeholder');
+        var placeholderArr = placeholder.split(/ +/);
+        if(placeholderArr.length) {
+            var spans = $('<div />');
+            $.each(placeholderArr, function(index, value) {
+                spans.append($('<span />').html(value + '&nbsp;'));
+            });
+            div.append(spans);
+        }
+        self.click(function() {
+            self.addClass('open');
+            setTimeout(function() {
+                self.find('input').focus();
+                self.find('input').on('keyup', function() {
+                    self.toggleClass('loading', (self.find('input').val().toString().length > 3));
+                });
+            }, 750);
+        });
+        $(document).click(function(e) {
+            if(!$(e.target).is(self) && !jQuery.contains(self[0], e.target)) {
+                self.removeClass('open loading');
+                setTimeout(function() {
+                    self.find('input').val('');
+                }, 400);
+            }
+        });
+    });
+
+});
+
+//###############
+
+
+    if (profileData['0'] != undefined) {
+        let topContent = `
+            <div class="fs-search-box">
+                ${oldSearch}
             </div>
             <div class="fs-search-results"></div>
             <div class="underline" style="
@@ -172,6 +254,7 @@ export const topInit = async () => {
             </div>
         `;
         document.querySelector('.top').innerHTML = topContent;
+        document.querySelector('.loading img').style.opacity = 0;
         document.querySelector('.company-pic').style.backgroundImage = `url('${profileData['0'].image}')`;
         // searchHandler();
         // document.querySelector('.fs-search-box').insertAdjacentHTML('afterend', searchResults);
@@ -179,11 +262,8 @@ export const topInit = async () => {
         searchHandler();
     } else {
         let topContent = `
-        <div class="fs-search-box">
-                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
-                    <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
-                    </svg>
-                <input class="fs-search-text" placeholder="Search Companies" type="text"></input>
+            <div class="fs-search-box">
+                ${oldSearch}
             </div>
             <div class="fs-search-results"></div>
             <div class="underline" style="
@@ -191,8 +271,9 @@ export const topInit = async () => {
                 width: calc(100% - 50px); margin-left: 25px; top: 40px;
                 position: relative;">
             </div>
-        <div class="error">We are having some trouble loading this security right now. Please try another.</div>`
+            <div class="error">We are having some trouble loading this security right now. Please try another.</div>`
         document.querySelector('.top').innerHTML = topContent;
+        document.querySelector('.loading img').style.opacity = 0;
         document.querySelector('.variable-content').innerHTML = "";
         searchHandler();
     }
@@ -202,7 +283,7 @@ topInit();
 const profileRender = () => {
     document.querySelector('.variable-content').innerHTML = variableContent;
     graphlib.createOpChart();
-    graphlib.createCandlestickChart();
+    // graphlib.createCandlestickChart();
     graphlib.createPriceChart();
     containerQueryListener();
 }
@@ -213,60 +294,216 @@ const profileInit = () => {
     let description = "";
     //.some breaks the loop when an iteration returns true
     //Stop writing the description at the end of the first sentence
-    descriptionList.some((el) => {
+    descriptionList.some((el, index, array) => {
         description += el + ".";
-        return !(el.substring(el.length-3) == "Inc" || el.substring(el.length-2) == "Co"|| el.substring(el.length-4) == "Corp");
+        return !(el.substring(el.length-3) == "Inc" || el.substring(el.length-2) == "Co"|| el.substring(el.length-4) == "Corp" || array[index + 1].substring(0,3) == "com");
     });
 
     //handle rating section
     let ratingSection = "";
     if (ratingData['0'] != undefined) {
         ratingSection = `
-            ${ratingData['0'].date}
-            <h1>Rating</h1> - ${ratingData['0'].rating}, ${ratingData['0'].ratingRecommendation}
-            Overall: ${ratingData['0'].ratingScore}
-            DCF Score: ${ratingData['0'].ratingDetailsDCFScore}
-            DCF Recommendation: ${ratingData['0'].ratingDetailsDCFRecommendation}
-            DE Score: ${ratingData['0'].ratingDetailsDEScore}
-            DE Recommendation: ${ratingData['0'].ratingDetailsDERecommendation}
-            PB Score: ${ratingData['0'].ratingDetailsPBScore}
-            PB Recommendation: ${ratingData['0'].ratingDetailsPBRecommendation}
-            PE Score: ${ratingData['0'].ratingDetailsPEScore}
-            PE Recommendation: ${ratingData['0'].ratingDetailsPERecommendation}
-            ROA Score: ${ratingData['0'].ratingDetailsROAScore}
-            ROA Recommendation: ${ratingData['0'].ratingDetailsROARecommendation}
-            ROE Score: ${ratingData['0'].ratingDetailsROEScore}
-            ROE Recommendation: ${ratingData['0'].ratingDetailsROERecommendation}
+    <div class="grid-item grid-item-4">
+        <div class="rating-container">
+            <div>
+                <h2>Rating</h2>
+                <div>${ratingData['0'].rating}</div>
+            </div>
+
+            <table>
+            <tr>
+                <th>Type</th>
+                <th>Rating</th>
+                <th>Recommendation</th>
+            </tr>
+            <tr>
+                <td>Overall</td>
+                <td>${ratingData['0'].ratingScore}</td>
+                <td>${ratingData['0'].ratingRecommendation}</td>
+            </tr>
+            <tr>
+                <td>DCF</td>
+                <td>${ratingData['0'].ratingDetailsDCFScore}</td>
+                <td>${ratingData['0'].ratingDetailsDCFRecommendation}</td>
+            </tr>
+            <tr>
+                <td>DE</td>
+                <td>${ratingData['0'].ratingDetailsDEScore}</td>
+                <td>${ratingData['0'].ratingDetailsDERecommendation}</td>
+            </tr>
+            <tr>
+                <td>PB</td>
+                <td>${ratingData['0'].ratingDetailsPBScore}</td>
+                <td>${ratingData['0'].ratingDetailsPBRecommendation}</td>
+            </tr>
+            <tr>
+                <td>PE</td>
+                <td>${ratingData['0'].ratingDetailsPEScore}</td>
+                <td>${ratingData['0'].ratingDetailsPERecommendation}</td>
+            </tr>
+            <tr>
+                <td>ROA</td>
+                <td>${ratingData['0'].ratingDetailsROAScore}</td>
+                <td>${ratingData['0'].ratingDetailsROARecommendation}</td>
+            </tr>
+            <tr>
+                <td>ROE</td>
+                <td>${ratingData['0'].ratingDetailsROEScore}</td>
+                <td>${ratingData['0'].ratingDetailsROERecommendation}</td>
+            </tr>
+            </table>
+        </div>
+    </div>
         `;
     } else {
-        ratingSection = "Rating data is not yet available for this security."
+        ratingSection = `
+    <div class="grid-item grid-item-4" style="display: flex; flex-direction: column;">
+        <h2>Rating</h2>
+        <div class="fs-sum-block" style="padding: 25px; align-self: stretch; justify-self: stretch; height: 100%; width: calc(100% - 62px); ">
+            <div>
+                Rating data is not yet available for this security.
+            </div>
+        </div>
+    </div>
+        `
     }
+    const gridItem2 = `
+    <div class="grid-item grid-item-2">
+        <div class="fs-sum-block">
+            <div>
+                Sector
+            </div>
+            <div>
+                ${profileData['0'].sector}
+            </div>
+        </div>
+    </div>
+    `;
+    const gridItem3 = `
+    <div class="grid-item grid-item-3">
+    <h2>Background</h2>
+                    <div class="fs-sum-row">
+                        <div class="fs-sum-block">
+                            <div>
+                                $${profileData['0'].lastDiv}
+                            </div>
+                            <div>
+                                Last Div
+                            </div>
+                        </div>
+                        <div class="fs-sum-block">
+                            <div>
+                                ${profileData['0'].beta}
+                            </div>
+                            <div>
+                                Beta
+                            </div>
+                        </div>
+                        <div class="fs-sum-block">
+                            <div>
+                                ${profileData['0'].volAvg}
+                            </div>
+                            <div>
+                                Avg Volume
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fs-sum-row">
+                        <div class="fs-sum-block">
+                            <div>
+                                ${profileData['0'].exchange}
+                            </div>
+                            <div>
+                                Exchange
+                            </div>
+                        </div>
+                        <div class="fs-sum-block">
+                            <div>
+                                ${profileData['0'].industry}
+                            </div>
+                            <div>
+                                Industry
+                            </div>
+                        </div>
+                        <div class="fs-sum-block">
+                            <div>
+                                ${profileData['0'].ceo}
+                            </div>
+                            <div>
+                                CEO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    `;
+
     variableContent = `
         <div class="sum-content" data-observe-resizes>
             <div class="sum-grid">
                 <div class="grid-item grid-item-1">
-                    Symbol: ${quoteData['0'].symbol}
-                    Price: ${quoteData['0'].price}
-                    Shares Outstanding: ${quoteData['0'].sharesOutstanding}
-                    52wk high: ${quoteData['0'].yearHigh}
-                    52wk low: ${quoteData['0'].yearLow}
+                    <h2>Summary</h2>
+                    <div class="fs-sum-outer">
+                        <div class="fs-sum-outer-top">
+                            <div class="fs-sum-row">
+                                <div class="fs-sum-block">
+                                    <div>
+                                        ${quoteData['0'].symbol}
+                                    </div>
+                                    <div>
+                                        Symbol
+                                    </div>
+                                </div>
+                                <div class="fs-sum-block">
+                                    <div>
+                                        $${quoteData['0'].price}
+                                    </div>
+                                    <div>
+                                        Price
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fs-sum-row">
+                                <div class="fs-sum-block" style="width: 100%;">
+                                    <div>
+                                        ${nFormatter(quoteData['0'].sharesOutstanding, 2)}
+                                    </div>
+                                    <div>
+                                        Shares Outstanding
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fs-sum-row">
+                                <div class="fs-sum-block">
+                                    <div>
+                                        $${quoteData['0'].yearHigh}
+                                    </div>
+                                    <div>   
+                                        52wk high
+                                    </div>
+                                </div>
+                                <div class="fs-sum-block">
+                                    <div>  
+                                        $${quoteData['0'].yearLow}
+                                    </div>
+                                    <div>
+                                        52wk low
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fs-sum-outer-bottom">
+                            <div class="fs-sum-block" style="">
+                                <div>Description</div>
+                                <div class="description">
+                                    ${description}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="grid-item grid-item-2">
-                    <h1>Description</h1>
-                    ${description}
-                </div>
-                <div class="grid-item grid-item-3">
-                    lastDiv: ${profileData['0'].lastDiv}
-                    Beta: ${profileData['0'].beta}
-                    volAvg: ${profileData['0'].volAvg}
-                    Exchange: ${profileData['0'].exchange}
-                    Industry: ${profileData['0'].industry}
-                    Sector: ${profileData['0'].sector}
-                    CEO: ${profileData['0'].ceo}
-                </div>
-                <div class="grid-item grid-item-4">
-                    ${ratingSection}
-                </div>
+                <!--${gridItem2} -->
+                ${gridItem3}
+                ${ratingSection}
                 <div class="grid-item grid-item-5">
                     <!-- Styles -->
                     <style>

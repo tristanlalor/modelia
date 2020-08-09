@@ -57,6 +57,7 @@ export const generalFetch = async (dataset, ticker) => {
 export const fetchSearchResults = async (query) => {
   const result = await fetch(`https://financialmodelingprep.com/api/v3/search?query=${query}&limit=10&exchange=NASDAQ&apikey=${apiKey}`);
   const data = await result.json();
+  console.log("logging query results");
   console.log(data);
   return data;
 }
