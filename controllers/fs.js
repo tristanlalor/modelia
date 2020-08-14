@@ -192,7 +192,11 @@ export const populatePriceTable = (tableName, tableData) => {
         //loop thru headers and add field for each header to row i
         for (let i = 0; i < headers.length; i++) {
             let cell = newRow.insertCell(-1);
-            cell.innerHTML = tableData[j][headers[i]];
+            let contents;
+            contents = headers[i] != 'date' ? summary.nFormatter(tableData[j][headers[i]], 2): tableData[j][headers[i]];
+            console.log(contents);
+            if (contents == 'NaN') {contents = '–'};
+            cell.innerHTML = contents;
         }
         // let newCell2 = newRow.insertCell(-1);
         // newCell2.innerHTML = `${tableData['0'][prop]}`;

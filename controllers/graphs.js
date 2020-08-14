@@ -1,5 +1,6 @@
 import * as APIHandler from '/apiHandler.js';
 import * as candlesticks from '/candlesticks.js';
+import * as summary from '/summary.js';
 
 
 const getChartByContainerId = (id) => {
@@ -174,12 +175,18 @@ export const createOpChart = async () => {
     series.dataFields.period = "period";
     
     
-    
+    chart.numberFormatter.numberFormat = "#.0a";
+    chart.numberFormatter.bigNumberPrefixes = [
+      { "number": 1e+3, "suffix": "K" },
+      { "number": 1e+6, "suffix": "M" },
+      { "number": 1e+9, "suffix": "B" },
+      { "number": 1e+12, "suffix": "T" }
+    ];
     
     // series.tooltipText.adapter.add("text", function(text) {
     //     return text + "%";
     //   });
-    series.tooltipText = "[bold]{period}[/]\nRevenue: {openValueY.value}\nCost of Revenue: {valueY.value}\nGross Profit: {customValue.value}";
+    series.tooltipText = "[bold]{period}[/]\nRevenue: ${openValueY.value}\nCost of Revenue: ${valueY.value}\nGross Profit: ${customValue.value}";
     series.sequencedInterpolation = true;
     series.fillOpacity = 0.3;
     series.defaultState.transitionDuration = 500;
