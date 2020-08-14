@@ -887,7 +887,7 @@ body {
 }
 
 .LG .fs-sum-outer {
-    height: 100%;
+    /* height: 100%; */
     flex-direction: column;
 }
 .LG .grid-item-1 .fs-sum-outer-top {
