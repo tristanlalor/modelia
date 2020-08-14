@@ -2208,7 +2208,7 @@ align-items: center; */
     max-height: calc(100% - 75px);
     width: calc(100% - 50px);
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     /* text-align: left; */
     overflow: scroll;
     background-color: white;
