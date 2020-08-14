@@ -51,24 +51,6 @@
         <!%- include('partials/summary'); %>
         <!-- ############################################################## -->
         <div class="fs container active scale">
-            <!-- <div class="statement is">
-                <img class="fs-icon" src="temp.png"/>
-                <div class="inner hidden">
-                    
-                </div>
-            </div>
-            <div class="statement bs">
-                <img class="fs-icon" src="temp.png"/>
-                <div class="inner hidden">
-                    
-                </div>
-            </div>
-            <div class="statement cfs">
-                <img class="fs-icon" src="temp.png"/>
-                <div class="inner hidden">
-                    
-                </div>
-            </div> -->
             
             <div class="fs-nav">
                 <div class="logo-box">
@@ -80,14 +62,14 @@
                 <div class="fs-nav-item stats-btn">Statistics</div>
                 <div class="fs-nav-item ratios-btn">Ratios</div>
                 <div class="fs-nav-item growth-btn">Growth</div>
-                Financials
+                <h2>Financials</h2>
                 <div class="fs-nav-item is-btn">Income Statement</div>
                 <div class="fs-nav-item bs-btn">Balance Sheet</div>
                 <div class="fs-nav-item cfs-btn">Cash Flows</div>
                 <div class="fs-collapse-nav"></div>
             </div>
             <div class="fs-content">
-                <div class="top">
+                <div class="top" data-observe-resizes>
                     <div class="fs-search-box">
                         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
                             <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
@@ -205,10 +187,44 @@
                     <!-- ####################################### -->
                 </div>
             </div>
-
         </div>
         <div class="account container scale">
-            My Account
+            <% if (loggedIn) { %>
+                <div class="welcome-box">Welcome, <%- user.name %></div>
+                <a href="/users/logout" class="logout-box">Logout</a>
+                <h2>My Favorites</h2>
+            <% } else {%>
+                <div></div>
+                <a href="/users/login" class="logout-box">Login</a>
+                <h2>Popular Models</h2>
+            <% } %>
+            
+            <div class="favorites-box">
+                
+            </div>
+            <% if (loggedIn) { %>
+                <%- user._id = null %>
+                <%- user.date = null %>
+                <script>
+                window.user = <%- user %>;
+                console.log(user);
+                user.favorites.forEach((el, index, array) => {
+                    let favorite = `
+                        <div class="favorite" id="fav-${index}">
+                            ${el.companyName}
+                        </div>
+                    `;
+                    document.querySelector('.favorites-box').insertAdjacentHTML('beforeend', favorite);
+                    document.querySelector(`#fav-${index}`).style.backgroundImage = `url('${el.image}')`;
+                });
+
+                </script>
+            <% } %>
+            <script>
+                window.loggedIn = <%-loggedIn%>;
+            </script>
+
+
         </div>
         <div class="abt container scale">
             <div class="abt-header"></div>

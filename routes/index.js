@@ -5,8 +5,20 @@ const { ensureAuthenticated } = require('../config/auth')
 //Welcome page
 router.get('/', (req, res) => {
     if (req.user) {
-        res.redirect('/dashboard');
-    } else res.render('welcome');
+        // res.locals.user = req.user;
+        // res.locals.loggedIn = true;
+        // window.user = req.user;
+        // window.loggedIn = true;
+        // res.redirect('/dashboard');
+        res.render('welcome', {
+            user: req.user,
+            loggedIn: true
+        });
+    } else {
+        // window.loggedIn = false;
+        // res.locals.loggedIn = false;
+        res.render('welcome', { loggedIn: false });
+    }
 });
 //Dashboard
 router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dashboard', {

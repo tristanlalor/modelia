@@ -5,8 +5,16 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+// configure the app to use bodyParser()
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+
 
 //passport config
 require('./config/passport')(passport);

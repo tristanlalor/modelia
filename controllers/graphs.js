@@ -1,4 +1,5 @@
 import * as APIHandler from '/apiHandler.js';
+import * as candlesticks from '/candlesticks.js';
 
 
 const getChartByContainerId = (id) => {
@@ -9,6 +10,7 @@ const getChartByContainerId = (id) => {
     }
   }
 }
+
 const chartDisposalService = (chart) => {
   document.querySelectorAll('.fs-nav-item').forEach
   Array.prototype.slice.call(document.querySelectorAll(".fs-nav-item")).forEach((el, index) => {
@@ -17,6 +19,7 @@ const chartDisposalService = (chart) => {
     });
   });
 }
+
 
 {
   // Pie Chart #####################################################################################################################################################################################################################################################################################
@@ -100,7 +103,7 @@ const chartDisposalService = (chart) => {
 //[{date, open, close, difference}]
 //(date, cogs, revenue, profit)
 // Operating Performance Chart (opchart)#########################################################################
-export const createOpChart = () => {
+export const createOpChart = async () => {
     am4core.useTheme(am4themes_animated);
     
     var chart = am4core.create("chartdiv", am4charts.XYChart);
@@ -109,19 +112,47 @@ export const createOpChart = () => {
     chart.paddingRight = 0;
     chart.paddingLeft = 0;
     
-    var data = [];
-    var open = 100;
-    var close = 250;
-    var difference = close - open;
+    // var data = [];
+    // var open = 100;
+    // var close = 250;
+    // var difference = close - open;
     
-    for (var i = 1; i < 120; i++) {
-      open += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 4);
-      close = Math.round(open + Math.random() * 5 + i / 5 - (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2);
-      difference = close - open;
-      data.push({ date: new Date(2018, 0, i), open: open, close: close, difference: difference });
-    }
+    // for (var i = 1; i < 120; i++) {
+    //   open += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 4);
+    //   close = Math.round(open + Math.random() * 5 + i / 5 - (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2);
+    //   difference = close - open;
+    //   data.push({ date: new Date(2018, 0, i), open: open, close: close, difference: difference });
+    // }
     
-    chart.data = data;
+    // chart.data = data;
+
+
+    let symbol = localStorage.getItem("symbol");
+    let isDataQuarterly;
+    if (localStorage.getItem("isDataQuarterly") == null) {
+      console.log("fetching priceData and storing in localStorage");
+      isDataQuarterly = await APIHandler.generalFetch("income-statement", symbol, "period=quarter");
+      localStorage.setItem("isDataQuarterly", JSON.stringify(isDataQuarterly));
+      // data = isDataQuarterly['historical'].reverse();
+      console.log(isDataQuarterly);
+  } else {
+      console.log("retrieving priceData from localStorage");
+      isDataQuarterly = JSON.parse(localStorage.getItem("isDataQuarterly"));
+      // data = isDataQuarterly['historical'].reverse();
+      console.log(isDataQuarterly);
+  }
+  // [{date, open, close, difference}]
+  let data = [];
+  isDataQuarterly.forEach((el, index, array) => {
+    let grossProfit = el.revenue - el.costOfRevenue;
+    // data[index] = {el.date, el.revenue, el.costOfRevenue, grossProfit};    
+    let period = el.period == "FY" ? "Q4" : el.period;
+    data.push({ date: el.date, open: el.revenue, close: el.costOfRevenue, difference: grossProfit, period: period});                                            
+  });
+
+  chart.data = data;
+
+
     
     var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     
@@ -140,6 +171,7 @@ export const createOpChart = () => {
     series.dataFields.openValueY = "open";
     series.dataFields.valueY = "close";
     series.dataFields.customValue = "difference";
+    series.dataFields.period = "period";
     
     
     
@@ -147,7 +179,7 @@ export const createOpChart = () => {
     // series.tooltipText.adapter.add("text", function(text) {
     //     return text + "%";
     //   });
-    series.tooltipText = "Revenue: {openValueY.value} Costs: {valueY.value} profit: {customValue.value}";
+    series.tooltipText = "[bold]{period}[/]\nRevenue: {openValueY.value}\nCost of Revenue: {valueY.value}\nGross Profit: {customValue.value}";
     series.sequencedInterpolation = true;
     series.fillOpacity = 0.3;
     series.defaultState.transitionDuration = 500;
@@ -163,13 +195,20 @@ export const createOpChart = () => {
     
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.xAxis = dateAxis;
+    var axisTooltip = dateAxis.tooltip;
+    dateAxis.tooltipDateFormat = "MMM yyyy";
+    // dateAxis.tooltipText = "{dateX.value} {period.value}";
+    // dateAxis.adapter.add("getTooltipText", () => {
+    //   return ">>>" + series.dataFields.period + text + " <<<";
+    //  });
+
     chart.cursor.lineX.stroke = am4core.color("#2C2B2B");
     chart.cursor.lineY.stroke = am4core.color("#2C2B2B");
 
     //add event listener to dispose of chart
     chartDisposalService(chart);
 }
-createOpChart();
+// createOpChart();
 
 export const createPriceChart = () => {
   am4core.ready(async function() {
@@ -299,7 +338,7 @@ export const createPriceChart = () => {
     chartDisposalService(chart);
     }); // end am4core.ready()
 }
-createPriceChart();
+// createPriceChart();
 
 
 // [{date, open, high, low, close}]
@@ -373,6 +412,10 @@ export const createCandlestickChart = (numDays) => {
         data = priceData['historical'].reverse();
         console.log(priceData);
     }
+      if (numDays > data.length) {
+        numDays = data.length;
+        candlesticks.setNumDays(numDays);
+      }
       chart.data = data.slice(-numDays);
     
 

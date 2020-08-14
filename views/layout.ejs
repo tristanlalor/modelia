@@ -28,7 +28,7 @@ let containerQueryListener = () => {
                 var ro = new ResizeObserver(function(entries) {
                 // Default breakpoints that should apply to all observed
                 // elements that don't define their own custom breakpoints.
-                var defaultBreakpoints = {SM: 300, MD: 576, LG: 768, XL: 960};
+                var defaultBreakpoints = {SM: 300, SMD: 506, MD: 576, LG: 768, XL: 960};
             
                 entries.forEach(function(entry) {
                     // If breakpoints are defined on the observed element,
@@ -57,8 +57,8 @@ let containerQueryListener = () => {
                 }
             }
         };
-        containerQueryListener();
-        // document.querySelector('.profile-btn').addEventListener('click', containerQueryListener());
+containerQueryListener();
+// document.querySelector('.profile-btn').addEventListener('click', containerQueryListener());
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

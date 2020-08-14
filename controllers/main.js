@@ -17,11 +17,10 @@ let activeClass = "fs";
 
 
 
-
 const newClickFunction = (e) => {
     console.log("Mouse Over");
                 toggleHamburger();
-                !menuOpen ? document.querySelector('.page-selector').style.transform = `translateX(0)` :         document.querySelector('.page-selector').style.transform = `translateX(calc(${lastTranslateAmt}vw + 2vw + 102.5px))`;
+                !menuOpen ? document.querySelector('.page-selector').style.transform = `translateX(0)` : document.querySelector('.page-selector').style.transform = `translateX(calc(${lastTranslateAmtSelector}vw + 2vw + 102.5px))`;
                 ;
                 if (document.querySelector('.active').classList.contains("scale")) {
                     // window.requestAnimationFrame(() => {
@@ -242,7 +241,8 @@ transitionElement.addEventListener('transitionend', (event) => {
     // };
 })
 
-let lastTranslateAmt = 0;
+window.lastTranslateAmtSelector = 0;
+window.lastTranslateAmt = 0;
 // set up nav btns
 Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
     let className;
@@ -256,12 +256,12 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
         let translateAmt = 100 * index;
         
         document.querySelector('.all-pages-container').style.transform = `translateX(-${translateAmt}vw)`;
-        
+        lastTranslateAmt = translateAmt;
         let translateAmtSelector = (index) * 25;
-        lastTranslateAmt = translateAmtSelector;
+        lastTranslateAmtSelector = translateAmtSelector;
         document.querySelector('.page-selector').style.transform = `translateX(calc(${translateAmtSelector}vw + 2vw + 102.5px))`;
 
-        Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
+        Array.prototype.slice.call(document.querySelectorAll('.btn')).forEach((el, index) => {
             el.classList.remove('btn-active');
         });
         event.target.classList.add('btn-active');
@@ -279,7 +279,6 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
                         document.querySelector(".all-pages-container").removeEventListener("click", newClickFunction);
         let translateAmt = 100 * index;
         document.querySelector('.all-pages-container').style.transform = `translateX(-${translateAmt}vw)`;
-        removeHamburger();
         document.querySelector('.page-selector').style.transform = `translateX(0)`;
         Array.prototype.slice.call(document.querySelectorAll(".container")).forEach((el, index) => {
             el.classList.add("scale");
@@ -296,6 +295,7 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
             ele.style.pointerEvents = 'none';
             document.querySelector(`.ghost`).style.transform = "scaleX(1)";
         });
+        removeHamburger();
 
         docked = false;
 
@@ -333,37 +333,41 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
 });
 let docked = false;
 
+const arrowHandler = (num) => {
+    let translateAmt = lastTranslateAmt + num;
+    document.querySelector('.all-pages-container').style.transform = `translateX(-${translateAmt}vw)`;
+    lastTranslateAmt = translateAmt;
+    let index = translateAmt / 100;
+    let translateAmtSelector = (index) * 25;
+    lastTranslateAmtSelector = translateAmtSelector;
+    if (!document.querySelector('.active').classList.contains("scale")) {
+        document.querySelector('.page-selector').style.transform = `translateX(calc(${translateAmtSelector}vw + 2vw + 102.5px))`;
+    }
+    // document.querySelector('.page-selector').style.transform = `translateX(calc(${translateAmtSelector}vw + 2vw + 102.5px))`;
+    Array.prototype.slice.call(document.querySelectorAll('.btn')).forEach((el, btnIndex) => {
+        index == btnIndex ? el.classList.add('btn-active') : el.classList.remove('btn-active');
+    });
+}
 
-// //set up full-screen btn
-//OLD CLICK FUNCTION
-// document.querySelector('.ham-icon').addEventListener('click', (event) => {
-//     (docked) ? docked = false : docked = true;
-//     if (!docked) {
-//         document.querySelector('.all-pages-container').classList.add("scale");
-//     }
-//     Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
-//         let ele = document.querySelector(`.btn-${index+1}`)
-//         ele.style.transform = `translateX(0px)`;
-//         ele.style.opacity = 0;
-//         ele.style.pointerEvents = 'none';
-//         document.querySelector(`.ghost`).style.transform = "scaleX(1)";
-//     });
-// });
+document.addEventListener('keydown', (e) => {
+    if (e.key == "ArrowRight") {
+        e.preventDefault();
+        if (lastTranslateAmt < 300) {
+            arrowHandler(100);
+        }
+    } else if (e.key == "ArrowLeft") {
+        e.preventDefault();
+        if (lastTranslateAmt > 0) {
+            arrowHandler(-100);
+        }
+    }
+})
 
 
 
 document.querySelector(".hamburger").addEventListener("click", newClickFunction);
 document.querySelector(".ham-icon").addEventListener("click", newClickFunction);
 document.querySelector(".ghost").addEventListener("click", newClickFunction);
-// document.querySelector(".hamburger").addEventListener("mouseover", mouseOver);
-// document.querySelector(".ham-icon").addEventListener("mouseover", mouseOver);
-// document.querySelector(".nav-btn").addEventListener("mouseover", mouseOver);
-// document.querySelector(".ghost").addEventListener("mouseover", mouseOver);
-// document.querySelector(".nav-btn").addEventListener("mouseleave", mouseLeaveBtns);
-// document.querySelector(".ghost").addEventListener("mouseleave", mouseLeaveBtns);
-// document.querySelector(".hamburger").addEventListener("mouseleave", mouseLeaveBtns);
-// document.querySelector(".ham-icon").addEventListener("mouseleave", mouseLeaveBtns);
-
 
 
 document.addEventListener("click", e => {

@@ -1,7 +1,14 @@
 import * as graphlib from '/graphs.js';
+import * as fs from '/fs.js';
 import * as APIHandler from '/apiHandler.js';
+// import { post } from '../routes';
 
-export let symbol = "AAPL";
+export let symbol;
+if (localStorage.getItem("symbol") == null) {
+    symbol = "AAPL";
+    localStorage.setItem("symbol", symbol);
+
+}
 export let relevantQuery = "";
 
 //############################################################
@@ -15,6 +22,9 @@ export let relevantQuery = "";
 //     });
 // }
 const resultClicked = (ticker) => {
+    //make profile the active button
+        //code
+    fs.setNumYears(5);
     document.querySelector('.search-icon').style.transform = "rotate(90deg)";
     document.querySelector('.loading img').style.opacity = 0;
     document.querySelector('.fs-search-results').innerHTML = "";
@@ -23,8 +33,12 @@ const resultClicked = (ticker) => {
     symbol = ticker;
     removeEventHandlers();
     topInit();
+
+    let content = document.querySelector('.fs-content');
+    if (content.classList.contains('fs-full')) fs.fsCollapseNav();
     console.log(`New Ticker is ${ticker}`);
 }
+window.resultClicked = resultClicked;
 const removeEventHandlers = () => {
     console.log("destroying event handlers");
     document.removeEventListener('keyup', keyUpEventHandler);
@@ -144,7 +158,7 @@ export const getRatingData = async () => {
     }
 }
 
-const nFormatter = (num, digits) => {
+export const nFormatter = (num, digits) => {
     var si = [
       { value: 1, symbol: "" },
       { value: 1E3, symbol: "k" },
@@ -154,6 +168,11 @@ const nFormatter = (num, digits) => {
       { value: 1E15, symbol: "P" },
       { value: 1E18, symbol: "E" }
     ];
+    let changed = "";
+    if (num < 0) {
+        num *= -1;
+        changed = "-";
+    }
     var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
     var i;
     for (i = si.length - 1; i > 0; i--) {
@@ -161,9 +180,114 @@ const nFormatter = (num, digits) => {
         break;
       }
     }
-    return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+    // if (changed) num *= -1;
+    return changed + (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
 
+
+const updateFavorites = () => {
+    console.log("UPDATING FAVORITES");
+    let favoritesHTML = ``;
+    let array;
+    if (loggedIn) {
+        array = user.favorites;
+    } else {
+        array = defaultFavorites;
+    }
+    array.forEach((el, index, array) => {
+        favoritesHTML += `
+            <div>
+                <div class="favorite-name">${el.companyName}</div>
+                <div class="favorite" id="fav-${index}" onclick="
+                    let ticker = this.children[0].innerHTML; 
+                    resultClicked(ticker); 
+                    document.querySelector('.all-pages-container').style.transform = 'translateX(-0vw)'; 
+                    lastTranslateAmt = 0; Array.prototype.slice.call(document.querySelectorAll('.btn')).forEach((el, index) => {
+                        el.classList.remove('btn-active');
+                    });
+                    document.querySelector('.btn-1').classList.add('btn-active');
+                ">
+                    <div style="display: none;">${el.symbol}</div>
+                </div>
+            </div>
+        `;
+    });
+    // let favoritesHTML = `
+    // ${loggedIn ? favoritesIterative : "PLEASE LOG IN"}
+    // `;
+    document.querySelector('.favorites-box').innerHTML = favoritesHTML;
+    
+    array.forEach((el, index, array) => {
+        document.querySelector(`#fav-${index}`).style.backgroundImage = `url('${el.image}')`;
+        console.log('ADDING BACKDROP FILTER');
+        document.querySelector(`#fav-${index}`).style.backdropFilter = `blur(5px);`;
+    });
+
+    
+}
+
+const defaultFavorites = [
+    {
+      "symbol": "AAPL",
+      "image": "https://financialmodelingprep.com/image-stock/AAPL.jpg",
+      "companyName": "Apple Inc."
+    },
+    {
+      "symbol": "AMZN",
+      "image": "https://financialmodelingprep.com/image-stock/AMZN.jpg",
+      "companyName": "Amazon.com Inc."
+    },
+    {
+      "symbol": "F",
+      "image": "https://financialmodelingprep.com/image-stock/F.jpg",
+      "companyName": "Ford Motor Company"
+    },
+    {
+      "symbol": "CSCO",
+      "image": "https://financialmodelingprep.com/image-stock/CSCO.jpg",
+      "companyName": "Cisco Systems Inc."
+    },
+    {
+      "symbol": "GOOGL",
+      "image": "https://financialmodelingprep.com/image-stock/GOOGL.jpg",
+      "companyName": "Alphabet Inc."
+    },
+    {
+      "symbol": "SAH",
+      "image": "https://financialmodelingprep.com/image-stock/SAH.jpg",
+      "companyName": "Sonic Automotive Inc."
+    },
+    {
+      "symbol": "GS",
+      "image": "https://financialmodelingprep.com/image-stock/GS.jpg",
+      "companyName": "Goldman Sachs Group Inc. (The)"
+    },
+    {
+      "symbol": "TSLA",
+      "image": "https://financialmodelingprep.com/image-stock/TSLA.jpg",
+      "companyName": "Tesla Inc."
+    },
+    {
+      "symbol": "MCD",
+      "image": "https://financialmodelingprep.com/image-stock/MCD.jpg",
+      "companyName": "McDonald's Corporation"
+    },
+    {
+      "symbol": "WMT",
+      "image": "https://financialmodelingprep.com/image-stock/WMT.jpg",
+      "companyName": "Walmart Inc."
+    },
+    {
+      "symbol": "DIS",
+      "image": "https://financialmodelingprep.com/image-stock/DIS.jpg",
+      "companyName": "The Walt Disney Company"
+    },
+    {
+      "symbol": "MED",
+      "image": "https://financialmodelingprep.com/image-stock/MED.jpg",
+      "companyName": "MEDIFAST INC"
+    }
+  ];
 export const topInit = async () => {
     await getProfileData();
     await getQuoteData();
@@ -189,46 +313,8 @@ export const topInit = async () => {
     </div>
 </div>
     `;
-//###############
-//(from codepen)
-$(document).ready(function() {
 
-    $('.search').each(function() {
-        var self = $(this);
-        var div = self.children('.field');
-        var placeholder = div.children('input').attr('placeholder');
-        var placeholderArr = placeholder.split(/ +/);
-        if(placeholderArr.length) {
-            var spans = $('<div />');
-            $.each(placeholderArr, function(index, value) {
-                spans.append($('<span />').html(value + '&nbsp;'));
-            });
-            div.append(spans);
-        }
-        self.click(function() {
-            self.addClass('open');
-            setTimeout(function() {
-                self.find('input').focus();
-                self.find('input').on('keyup', function() {
-                    self.toggleClass('loading', (self.find('input').val().toString().length > 3));
-                });
-            }, 750);
-        });
-        $(document).click(function(e) {
-            if(!$(e.target).is(self) && !jQuery.contains(self[0], e.target)) {
-                self.removeClass('open loading');
-                setTimeout(function() {
-                    self.find('input').val('');
-                }, 400);
-            }
-        });
-    });
-
-});
-
-//###############
-
-
+    console.log(JSON.parse(localStorage.getItem("profileData"))[0].image);
     if (profileData['0'] != undefined) {
         let topContent = `
             <div class="fs-search-box">
@@ -238,13 +324,45 @@ $(document).ready(function() {
             <div class="underline" style="
                 border-bottom: solid rgb(233, 234, 238) 1px; 
                 width: calc(100% - 50px); margin-left: 25px; top: 40px;
-                position: relative;">
+                position: relative; z-index: 1;">
             </div>
             <div class="top-info">
                 <div class="company-pic"></div>
                 <div class="company-highlights-box">
-                    <div class="company-name">${profileData['0'].companyName}</div>
+                    <div class="company-name-box"><div class="company-name">${profileData['0'].companyName}</div>
+                    ${ loggedIn ? `
+                    <form action="/users/update" method="POST" id="favorites-form">
+                        <div class="form-group">
+                            <input
+                                type="symbol"
+                                id="symbol"
+                                name="symbol"
+                                class="form-control"
+                                placeholder="Enter Symbol"
+                                value="${localStorage.getItem("symbol")}"
+                                style="display: none"
+                            />
+                        </div>
+                        ${
+                            user.favorites.filter(favorite => favorite.symbol === localStorage.getItem("symbol")).length > 0 ? `
+                            <button type="submit" class="btn-primary btn-block" id="add-favorite-btn">
+                                Unfavorite
+                            </button>
+                            ` : `
+                            <button type="submit" class="btn-primary btn-block" id="add-favorite-btn">
+                                Favorite
+                            </button>`
+                        }
+                        
+              </form>
+                    ` : `
+                    <a href="/users/login" class="btn-primary btn-block" id="add-favorite-btn">
+                        Favorite
+                    </a>`}
+                    </div>
                     <div class="company-stats-box">
+                    
+
                         <img src="img/mkcap.svg" alt="" style="width: 15px; filter: invert(.5);">
                         <div class="company-stat">Market Cap: ${nFormatter(profileData['0'].mktCap, 1)}</div>
                         <img src="img/stockup.svg" alt="" style="width: 15px; margin-left: 25px; transform: rotate(-45deg); filter: hue-rotate(-60deg);">
@@ -253,6 +371,7 @@ $(document).ready(function() {
                 </div>
             </div>
         `;
+        
         document.querySelector('.top').innerHTML = topContent;
         document.querySelector('.loading img').style.opacity = 0;
         document.querySelector('.company-pic').style.backgroundImage = `url('${profileData['0'].image}')`;
@@ -260,6 +379,40 @@ $(document).ready(function() {
         // document.querySelector('.fs-search-box').insertAdjacentHTML('afterend', searchResults);
         profileInit();
         searchHandler();
+        
+        window.post = function(request) {
+            return fetch(request);
+        }
+        var form = document.getElementById("favorites-form");
+        function handleForm(event) {
+            let add;
+            if (user.favorites.filter(favorite => favorite.symbol === localStorage.getItem("symbol")).length > 0) {
+                add = false;
+                document.querySelector('#add-favorite-btn').innerHTML = "Favorite";
+            } else {
+                add = true;
+                document.querySelector('#add-favorite-btn').innerHTML = "Unfavorite";
+            }
+            const data = {"symbol": localStorage.getItem("symbol"), "image": profileData['0'].image, "companyName": profileData['0'].companyName, add: add};
+            add ? user.favorites.push(data) : user.favorites = user.favorites.filter( (obj) => {
+                return obj.symbol !== localStorage.getItem("symbol");
+            });
+            console.log(data);
+            console.log("HANDLING POST: ");
+            event.preventDefault();  
+            var request = new Request("/users/update", {
+                method: 'POST', 
+                headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }, 
+                body: JSON.stringify(data)});
+            console.log(add ? "ADDING FAVORITE" : "REMOVING FAVORITE");
+            post(request); 
+            updateFavorites();
+        } 
+        if (form) form.addEventListener('submit', handleForm);
+        updateFavorites();
     } else {
         let topContent = `
             <div class="fs-search-box">
@@ -269,7 +422,7 @@ $(document).ready(function() {
             <div class="underline" style="
                 border-bottom: solid rgb(233, 234, 238) 1px; 
                 width: calc(100% - 50px); margin-left: 25px; top: 40px;
-                position: relative;">
+                position: fixed; z-index: 10;">
             </div>
             <div class="error">We are having some trouble loading this security right now. Please try another.</div>`
         document.querySelector('.top').innerHTML = topContent;
@@ -279,7 +432,7 @@ $(document).ready(function() {
     }
 }
 topInit();
-
+window.topInit = topInit;
 const profileRender = () => {
     document.querySelector('.variable-content').innerHTML = variableContent;
     graphlib.createOpChart();
@@ -296,7 +449,13 @@ const profileInit = () => {
     //Stop writing the description at the end of the first sentence
     descriptionList.some((el, index, array) => {
         description += el + ".";
-        return !(el.substring(el.length-3) == "Inc" || el.substring(el.length-2) == "Co"|| el.substring(el.length-4) == "Corp" || array[index + 1].substring(0,3) == "com");
+        try {
+            return !(el.substring(el.length-3) == "Inc" || el.substring(el.length-3) == "Ltd" || el.substring(el.length-2) == "Co"|| el.substring(el.length-4) == "Corp" || array[index + 1].substring(0,3) == "com" || array[index + 1].substring(0,1) == array[index + 1].substring(0,1).toLowerCase || array[index + 1].substring(0,1) == array[index + 1].substring(1,2).toLowerCase || el.length < 15);
+        } catch {
+            description = "No description available for this security";
+            return true;
+        }
+        
     });
 
     //handle rating section
@@ -379,6 +538,7 @@ const profileInit = () => {
         </div>
     </div>
     `;
+
     const gridItem3 = `
     <div class="grid-item grid-item-3">
     <h2>Background</h2>
