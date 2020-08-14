@@ -893,6 +893,7 @@ body {
 .LG .grid-item-1 .fs-sum-outer-top {
     display: block;
     /* align-self: stretch; */
+    max-height: 100%;
 }
 .LG .grid-item-1 .fs-sum-outer-bottom {
     align-self: flex-end;
