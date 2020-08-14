@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../style.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Raleway:wght@200;300;500&display=swap" rel="stylesheet">    
-    <link type="text/css" rel="stylesheet" href="style.css">
+    <!-- <link type="text/css" rel="stylesheet" href="style.css"> -->
+    <link type="text/css" rel="stylesheet" href="prefixed.css">
     <link type="text/css" rel="stylesheet" href="search.css">
     <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -55,8 +56,11 @@ let containerQueryListener = () => {
                 for (var element, i = 0; element = elements[i]; i++) {
                 ro.observe(element);
                 }
+            } else {
+                console.log("NOT SUPPORTED");
             }
         };
+window.containerQueryListener = containerQueryListener;
 containerQueryListener();
 // document.querySelector('.profile-btn').addEventListener('click', containerQueryListener());
     </script>
