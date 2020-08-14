@@ -1,7 +1,5 @@
 // import * as graphlib from '/graphs.js';
 
-
-
 // const am4core = require("https://cdn.amcharts.com/lib/4/core.js");
 // const am4charts = require("https://cdn.amcharts.com/lib/4/charts.js");
 let timer;
@@ -283,10 +281,8 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
         Array.prototype.slice.call(document.querySelectorAll(".container")).forEach((el, index) => {
             el.classList.add("scale");
         });
-        // document.querySelector(".transition").classList.remove("peak-in");
         clickHappening = true;
         clearTimeout(timer);
-        // setTimeout(clearTimeout(timer), 399);
         setTimeout(() => {clickHappening = false;}, 400);
         Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index) => {
             let ele = document.querySelector(`.btn-${index+1}`)
@@ -298,36 +294,9 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
         removeHamburger();
 
         docked = false;
-
-        //do the transition
-        // transition(); // old
-        // animateTransition();
-
-        //if page is not yet full screen, go to full screen
-        // if (!document.querySelector('.all-pages-container').classList.contains("scale")) {
-        //     document.querySelector('.all-pages-container').classList.add("scale");
-        // }
-
-
-        //create timer for when page is fully covered by transition (200ms)
         className = Array.prototype.slice.call(document.querySelectorAll(".container"))[index].classList[0];
-        
-        // document.querySelector(`.${className}`).classList.add('active');
         activeClass = className
         setTimeout(() => {
-
-            // //remove active from all containers (hide them)
-            // Array.prototype.slice.call(document.querySelectorAll(".container")).forEach(el => {
-            //     if (!el.classList.contains(className)) {
-            //         el.classList.remove('active');
-            //     }
-            // });
-
-            //set the class of the corresponding html tab that the button corresponds with
-            // className = Array.prototype.slice.call(document.querySelectorAll(".container"))[index].classList[0];
-
-            // //add active to selected element
-            // document.querySelector(`.${className}`).classList.add('active');
         }, 200);
     });
 });

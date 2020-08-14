@@ -215,6 +215,14 @@ const updateFavorites = () => {
     // let favoritesHTML = `
     // ${loggedIn ? favoritesIterative : "PLEASE LOG IN"}
     // `;
+    favoritesHTML += `
+        <i aria-hidden="true"></i>
+        <i aria-hidden="true"></i>
+        <i aria-hidden="true"></i>
+        <i aria-hidden="true"></i>
+        <i aria-hidden="true"></i>
+        <i aria-hidden="true"></i>
+    `;
     document.querySelector('.favorites-box').innerHTML = favoritesHTML;
     
     array.forEach((el, index, array) => {
