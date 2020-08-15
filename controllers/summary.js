@@ -203,6 +203,7 @@ const updateFavorites = () => {
                     resultClicked(ticker); 
                     document.querySelector('.all-pages-container').style.transform = 'translateX(-0vw)'; 
                     lastTranslateAmt = 0; 
+                    lastTranslateAmtSelector = 0; 
                     Array.prototype.slice.call(document.querySelectorAll('.btn')).forEach((el, index) => {
                         el.classList.remove('btn-active');
                     });
