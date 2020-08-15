@@ -438,6 +438,7 @@ export const topInit = async () => {
         document.querySelector('.variable-content').innerHTML = "";
         searchHandler();
     }
+    fs.autoCollapseOnMobile();
 }
 topInit();
 window.topInit = topInit;

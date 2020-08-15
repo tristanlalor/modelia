@@ -267,16 +267,23 @@ HTMLElement.prototype.pseudoStyle = function(element,prop,value){
 	return this;
 };
 
+window.navCollapsed = false;
 export let fsCollapseNav = () => {
     let nav = document.querySelector('.fs-nav');
     let content = document.querySelector('.fs-content');
     content.classList.toggle('fs-full');
-    nav.style.transform === 'translateX(-100%)' ? nav.style.transform = 'translateX(0)' : nav.style.transform = 'translateX(-100%)';
     document.querySelector('.fs-collapse-nav').classList.toggle('fs-collapse-nav-collapsed');
 
-    //toggle search translate
-    // document.querySelector('.fs-search-box').style.transform == "translateX(15px)" ? (document.querySelector('.fs-search-box').style.transform = "translateX(0)", document.querySelector('.ham-icon').style.transform = "translate(-50%, -50%)") : (document.querySelector('.fs-search-box').style.transform = "translateX(15px)", document.querySelector('.ham-icon').style.transform = "translate(calc(-50% - 2px), calc(-50% - 5px))");
-    document.querySelector('.fs-search-box').style.transform == "translateX(15px)" ? (document.querySelector('.fs-search-box').style.transform = "translateX(0)") : (document.querySelector('.fs-search-box').style.transform = "translateX(15px)");
+    if (!navCollapsed) {
+        document.querySelector('.fs-search-box').style.transform = "translateX(15px)";
+        console.log(`document.querySelector('.fs-search-box').style.transform = "translateX(15px)";`)
+        nav.style.transform = 'translateX(-100%)';
+        navCollapsed = true;
+    } else {
+        document.querySelector('.fs-search-box').style.transform = "translateX(0)";
+        nav.style.transform = 'translateX(0)'
+        navCollapsed = false;
+    }
 
     //toggle hamburger menu color
     document.querySelector('.hamburger').classList.toggle('ham-collapsed');
@@ -287,6 +294,36 @@ export let fsCollapseNav = () => {
 }
 
 document.querySelector('.fs-collapse-nav').addEventListener('click', fsCollapseNav);
+
+
+var ua = window.navigator.userAgent;
+var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+var webkit = !!ua.match(/WebKit/i);
+var iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+export const autoCollapseOnMobile = () => {
+    console.log("RESIZE EVENT");
+    if (window.innerWidth <= 750) {
+        if (iOSSafari) {
+            document.querySelector('.fs-collapse-nav').style.bottom = "69px";
+        }
+        console.log("SMALL WINDOW: " + window.innerWidth);
+        if (!document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
+            fsCollapseNav();
+        }
+    } else {
+        console.log("BIG WINDOW: " + window.innerWidth);
+        if (iOSSafari) {
+            document.querySelector('.fs-collapse-nav').style.bottom = "0px";
+        }
+        if (document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
+            fsCollapseNav();
+            console.log("TRIGGERING COLLAPSE");
+        }
+    }
+}
+window.addEventListener('resize', autoCollapseOnMobile);
+
+
 
 
 //Add selected class to fs-nav-items
