@@ -1,4 +1,5 @@
 import * as graphlib from '/graphs.js';
+import * as fs from '/fs.js';
 
 export const setNumDays = (numDays) => {
     if (numDays) {
@@ -57,6 +58,9 @@ const changeDays = () => {
 }
 
 document.querySelector('.candlestick-btn').addEventListener('click', () => {
-    drawChart(numDays);
-    document.querySelector('#numDays').addEventListener('change', changeDays);
+    if (!document.querySelector('.candlestick-btn').classList.contains('selected')) {
+        fs.autoCollapseOnMobile();
+        drawChart(numDays);
+        document.querySelector('#numDays').addEventListener('change', changeDays);
+    }
 });

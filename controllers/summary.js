@@ -202,9 +202,17 @@ const updateFavorites = () => {
                     let ticker = this.children[0].innerHTML; 
                     resultClicked(ticker); 
                     document.querySelector('.all-pages-container').style.transform = 'translateX(-0vw)'; 
-                    lastTranslateAmt = 0; Array.prototype.slice.call(document.querySelectorAll('.btn')).forEach((el, index) => {
+                    lastTranslateAmt = 0; 
+                    Array.prototype.slice.call(document.querySelectorAll('.btn')).forEach((el, index) => {
                         el.classList.remove('btn-active');
                     });
+                    Array.prototype.slice.call(document.querySelectorAll('.fs-nav-item')).forEach((el, index) => {
+                        if (index == 0) {
+                            el.classList.add('selected'); 
+                        } else {
+                            el.classList.remove('selected');
+                        }
+                     });
                     document.querySelector('.btn-1').classList.add('btn-active');
                 ">
                     <div style="display: none;">${el.symbol}</div>
@@ -442,12 +450,15 @@ export const topInit = async () => {
 }
 topInit();
 window.topInit = topInit;
-const profileRender = () => {
-    document.querySelector('.variable-content').innerHTML = variableContent;
-    graphlib.createOpChart();
-    // graphlib.createCandlestickChart();
-    graphlib.createPriceChart();
-    containerQueryListener();
+const profileRender = (e) => {
+    if (!document.querySelector('.profile-btn').classList.contains('selected') || (!e)) {
+        fs.autoCollapseOnMobile();
+        document.querySelector('.variable-content').innerHTML = variableContent;
+        graphlib.createOpChart();
+        // graphlib.createCandlestickChart();
+        graphlib.createPriceChart();
+        containerQueryListener();
+    }
 }
 let variableContent;
 const profileInit = () => {

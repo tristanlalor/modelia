@@ -328,7 +328,7 @@ window.addEventListener('resize', autoCollapseOnMobile);
 
 //Add selected class to fs-nav-items
 document.querySelector('.fs-nav').addEventListener('click', e => {
-    if (e.target.classList.contains('fs-nav-item')) {
+    if (e.target.classList.contains('fs-nav-item') && !e.target.classList.contains('selected')) {
         Array.prototype.slice.call(document.querySelectorAll(".fs-nav-item")).forEach((el, index) => {
            el.classList.remove('selected');
         });

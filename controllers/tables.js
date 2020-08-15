@@ -94,9 +94,12 @@ const dataGetterSetterPop = async (localData, dataSet, tableName, range) => {
 }
 
 const btnEventHandler = (btnName, localData, dataSet, tableName, range) => {
-    document.querySelector(btnName).addEventListener('click', () => {
-        localStorage.setItem("period", "annual");
-        dataGetterSetterPop(localData, dataSet, tableName, range);
+    document.querySelector(btnName).addEventListener('click', (e) => {
+        if (!e.target.classList.contains('selected') || (!e)) {
+            fs.autoCollapseOnMobile();
+            localStorage.setItem("period", "annual");
+            dataGetterSetterPop(localData, dataSet, tableName, range);
+        }
     });
 }
 
@@ -137,23 +140,26 @@ const quarterlySetup = (localData, dataSet, tableName, range) => {
 }
 
 //event handler for price btn
-document.querySelector('.price-data-btn').addEventListener('click', async () => {
-    if (localStorage.getItem("priceData") == null) {
-        console.log("fetching data and storing in localStorage");
-        const data = await APIHandler.generalFetch("historical-price-full", localStorage.getItem("symbol"));
-        fs.populatePriceTable("Price Data", data['historical']);
-        document.querySelector('#numRows').addEventListener('change', () => {
-            changeRows(data);
-        });
-        localStorage.setItem("priceData", JSON.stringify(data));
-    } else {
-        console.log("retrieving data from localStorage");
-        const data = JSON.parse(localStorage.getItem("priceData"));
-        fs.populatePriceTable("Price Data", data['historical']);
-        //quarterly toggle
-        document.querySelector('#numRows').addEventListener('change', () => {
-            changeRows(data);
-        });
+document.querySelector('.price-data-btn').addEventListener('click', async (e) => {
+    if (!e.target.classList.contains('selected') || (!e)) {
+        fs.autoCollapseOnMobile();
+        if (localStorage.getItem("priceData") == null) {
+            console.log("fetching data and storing in localStorage");
+            const data = await APIHandler.generalFetch("historical-price-full", localStorage.getItem("symbol"));
+            fs.populatePriceTable("Price Data", data['historical']);
+            document.querySelector('#numRows').addEventListener('change', () => {
+                changeRows(data);
+            });
+            localStorage.setItem("priceData", JSON.stringify(data));
+        } else {
+            console.log("retrieving data from localStorage");
+            const data = JSON.parse(localStorage.getItem("priceData"));
+            fs.populatePriceTable("Price Data", data['historical']);
+            //quarterly toggle
+            document.querySelector('#numRows').addEventListener('change', () => {
+                changeRows(data);
+            });
+        }
     }
 });
 

@@ -15,8 +15,10 @@ const getChartByContainerId = (id) => {
 const chartDisposalService = (chart) => {
   document.querySelectorAll('.fs-nav-item').forEach
   Array.prototype.slice.call(document.querySelectorAll(".fs-nav-item")).forEach((el, index) => {
-    el.addEventListener('click', () => {
-      chart.dispose();
+    el.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('selected')) {
+        chart.dispose();
+      }
     });
   });
 }
