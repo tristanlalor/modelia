@@ -297,9 +297,22 @@ document.querySelector('.fs-collapse-nav').addEventListener('click', fsCollapseN
 
 
 var ua = window.navigator.userAgent;
-var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+// var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
+function iOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+    // iPad on iOS 13 detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  }
 var webkit = !!ua.match(/WebKit/i);
-var iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
+// var iOSSafariBad = iOS && webkit && !ua.match(/CriOS/i);
+var iOSSafari = iOS() && webkit;
 export const autoCollapseOnMobile = () => {
     console.log("RESIZE EVENT");
     if (window.innerWidth <= 750) {
