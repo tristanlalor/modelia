@@ -302,9 +302,6 @@ var webkit = !!ua.match(/WebKit/i);
 var iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 export const autoCollapseOnMobile = () => {
     console.log("RESIZE EVENT");
-    if (iOSSafari) {
-        document.querySelector('.fs-collapse-nav').style.bottom = "69px";
-    }
     if (window.innerWidth <= 750) {
         console.log("SMALL WINDOW: " + window.innerWidth);
         if (!document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
@@ -319,6 +316,9 @@ export const autoCollapseOnMobile = () => {
             fsCollapseNav();
             console.log("TRIGGERING COLLAPSE");
         }
+    }
+    if (iOSSafari) {
+        document.querySelector('.fs-collapse-nav').style.bottom = "69px";
     }
 }
 window.addEventListener('resize', autoCollapseOnMobile);
