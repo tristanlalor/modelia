@@ -1,16 +1,12 @@
-// import * as graphlib from '/graphs.js';
-
-// const am4core = require("https://cdn.amcharts.com/lib/4/core.js");
-// const am4charts = require("https://cdn.amcharts.com/lib/4/charts.js");
 let timer;
 let scaling;
 let clickHappening = false;
 let activeClass = "fs";
 
-//remove load screen
-// setTimeout(() => {
-//     document.querySelector('.load-screen').style.opacity = '0';
-// },100);
+// remove load screen
+setTimeout(() => {
+    document.querySelector('.load-screen').style.opacity = '0';
+},100);
 
 
 
@@ -268,8 +264,6 @@ Array.prototype.slice.call(document.querySelectorAll(".btn")).forEach((el, index
 
     });
     
-    //add mouseout response
-    // el.addEventListener("mouseleave", mouseLeaveBtns);
 
     //add click response
     el.addEventListener('click', (event) => {

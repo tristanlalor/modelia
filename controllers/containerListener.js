@@ -8,7 +8,7 @@ import { ResizeObserver as Polyfill } from '/@juggle/resize-observer/lib/exports
 let containerQueryListener = () => {
     // Only run if ResizeObserver is supported.
     const ResizeObserver = window.ResizeObserver || Polyfill;
-    // if ('ResizeObserver' in self) {
+
         // Create a single ResizeObserver instance to handle all
         // container elements. The instance is created with a callback,
         // which is invoked as soon as an element is observed as well
@@ -43,9 +43,6 @@ let containerQueryListener = () => {
         for (var element, i = 0; element = elements[i]; i++) {
         ro.observe(element);
         }
-    // } else {
-    //     console.log("NOT SUPPORTED");
-    // }
 };
 window.containerQueryListener = containerQueryListener;
 containerQueryListener();

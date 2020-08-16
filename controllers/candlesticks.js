@@ -11,8 +11,6 @@ export const setNumDays = (numDays) => {
 }
 let numDays = setNumDays();
 
-
-
 const drawChart = (numDays) => {
     const markup = `
     <style>
@@ -52,8 +50,6 @@ const changeDays = () => {
     numDays = setNumDays();
     console.log({numDays});
     drawChart(numDays);
-    // document.querySelector('#numDays').value = numDays;
-    
     document.querySelector('#numDays').addEventListener('change', changeDays);
 }
 

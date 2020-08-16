@@ -1,4 +1,3 @@
-import * as APIHandler from '/apiHandler.js';
 import * as summary from '/summary.js';
 
 // ########################################Q###################
@@ -7,8 +6,6 @@ import * as summary from '/summary.js';
 
 let numYears = 5;
 export const setNumYears = (x) => {
-    // numYears = x > 10 ? 10 : x;
-    // console.log(numYears + " - numYears")
     numYears = x;
 }
 const setNumRows = (numRows) => {
@@ -19,8 +16,6 @@ const setNumRows = (numRows) => {
     }
     return numRows;
 }
-
-// System.Text.RegularExpressions.Regex.Replace(value, "[A-Z]", " $0")
 
 export const populateTable = (tableName, tableData, range) => {
     console.log(tableData);
@@ -49,16 +44,6 @@ export const populateTable = (tableName, tableData, range) => {
     </div>
         `;
    
-    // if (!document.querySelector('#numYears')) {
-    //     numYears = 5;
-    // } else if (parseInt(document.querySelector('#numYears').value) == NaN) {
-    //     numYears = 5;
-    // } else {
-    //     numYears = parseInt(document.querySelector('#numYears').value);
-    // }
-    // let numYears =  !document.querySelector('#numYears') ? 5 : parseInt(document.querySelector('#numYears').value) == NaN ? 5 : document.querySelector('#numYears').value;
-
-    // parseInt(document.querySelector('#numYears').value) : 5;
     console.log(numYears);
 
     document.querySelector('.variable-content').innerHTML = fsOgContent;
@@ -82,8 +67,6 @@ export const populateTable = (tableName, tableData, range) => {
     for (var prop in tableData['0']) {
         if (count > range[0] && count <= range[1]) {
             if (Object.prototype.hasOwnProperty.call(tableData['0'], prop)) {
-                // do stuff
-                // let regExp = new RegExp("((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
                 let newRow = table.insertRow(-1);
                 let newCell = newRow.insertCell(-1);
                 let contents = `${prop}`.replace(/([A-Z][a-z])/g, ' $1').trim();
@@ -140,7 +123,6 @@ export const populatePriceTable = (tableName, tableData) => {
     if (numRows > tableData.length) {
         numRows = tableData.length;
     }
-    // let numRows = document.querySelector('#numRows') ? parseInt(document.querySelector('#numRows').value) : 100;
 
     let fsOgContent = `
         <div class="table-tools">
@@ -157,13 +139,8 @@ export const populatePriceTable = (tableName, tableData) => {
             </table>
         </div>
         `;
-        
-    
-    // document.querySelector('.submit').addEventListener('click')
 
     document.querySelector('.variable-content').innerHTML = fsOgContent;
-
-    // document.querySelector('#numRows').value = numRows;
 
     const table = document.querySelector('.fs-table-outer table');
 
@@ -179,8 +156,6 @@ export const populatePriceTable = (tableName, tableData) => {
             cell.innerHTML = contents;
         cell.innerHTML = contents;
     }
-    // cell.innerHTML = `${tableData['historical']['period']} ${tableData['0']['fillingDate']}`;
-
     let count = 0;
 
     //change to loop through array, "label" property should be on left
@@ -198,48 +173,8 @@ export const populatePriceTable = (tableName, tableData) => {
             if (contents == 'NaN') {contents = '–'};
             cell.innerHTML = contents;
         }
-        // let newCell2 = newRow.insertCell(-1);
-        // newCell2.innerHTML = `${tableData['0'][prop]}`;
     }
-
-    // for (var prop in tableData['0']) {
-    //     if (count > 4 && count <= 30) {
-    //         if (Object.prototype.hasOwnProperty.call(tableData['0'], prop)) {
-    //             // do stuff
-    //             let newRow = table.insertRow(-1);
-    //             let newCell = newRow.insertCell(-1);
-    //             newCell.innerHTML = `${prop}`;
-    //             let newCell2 = newRow.insertCell(-1);
-    //             newCell2.innerHTML = `${tableData['0'][prop]}`;
-    //         }
-    //     }
-    //     count++;
-    // }
-    // addPriceData(tableData['1']);
-    // addPriceData(tableData['2']);
 }
-
-// export const addPriceData = (obj) => {
-//     const table = document.querySelector('.fs-table-outer table');
-//     let headerRow = document.querySelector('.fs-table-outer table thead tr')
-//     let cell = headerRow.insertCell(-1);
-//     cell.innerHTML = `${obj['period']} ${obj['fillingDate']}`;
-//     let rowNum = -4;
-//     let count = 0;
-//     for (var prop in obj) {
-//         if (count > 4 && count <= 30) {
-//             if (Object.prototype.hasOwnProperty.call(APIHandler.sampleData['0'], prop)) {
-//                 // do stuff
-//                 let row = table.rows[rowNum];
-//                 let newCell = row.insertCell(-1);
-//                 newCell.innerHTML = `${obj[prop]}`;
-//             }
-//         }
-//         count++;
-//         rowNum++;
-//     }
-// }
-// ###########################################################
 
 
 
@@ -296,9 +231,8 @@ export let fsCollapseNav = () => {
 document.querySelector('.fs-collapse-nav').addEventListener('click', fsCollapseNav);
 
 
-var ua = window.navigator.userAgent;
-// var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
-function iOS() {
+let ua = window.navigator.userAgent;
+const iOS = () => {
     return [
       'iPad Simulator',
       'iPhone Simulator',
@@ -309,10 +243,9 @@ function iOS() {
     ].includes(navigator.platform)
     // iPad on iOS 13 detection
     || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-  }
-var webkit = !!ua.match(/WebKit/i);
-// var iOSSafariBad = iOS && webkit && !ua.match(/CriOS/i);
-var iOSSafari = iOS() && webkit;
+}
+let webkit = !!ua.match(/WebKit/i);
+let iOSSafari = iOS() && webkit;
 export const autoCollapseOnMobile = () => {
     console.log("RESIZE EVENT");
     if (window.innerWidth <= 750) {
@@ -322,9 +255,6 @@ export const autoCollapseOnMobile = () => {
         }
     } else {
         console.log("BIG WINDOW: " + window.innerWidth);
-        // if (iOSSafari) {
-        //     document.querySelector('.fs-collapse-nav').style.bottom = "0px";
-        // }
         if (document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
             fsCollapseNav();
             console.log("TRIGGERING COLLAPSE");
