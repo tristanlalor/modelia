@@ -1430,9 +1430,6 @@ font-weight: 400;
     font-style: italic;
     line-height: normal;
 }
-.bio-header {
-    font-size: 15pt;
-}
 .socials-box div {
     line-height: normal;
 }
@@ -1510,6 +1507,27 @@ font-weight: 400;
     font-size: calc(12px + .5vw);
     opacity: 0;
     color: white;
+}
+.bio-header-box {
+    width: 100% !important;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+}
+.bio-links {
+    display: flex;
+}
+b {
+    font-weight: 300;
+}
+.bio-header-box a {
+    /* justify-self: flex-end !important; */
+}
+.bio-header {
+    font-size: 15pt;
+    /* justify-self: flex-start !important; */
+    /* align-self: flex-start !important; */
 }
 .gray-box-main {
     height: 80%;
