@@ -1,361 +1,368 @@
-    <div class="load-screen"></div>
-    <div class="ghost"></div>
-    <div class="nav-btn">
-        <!-- <div class="full-screen-btn"> -->
-            <div class="ham-icon">
-                <div class="hamburger"></div>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Raleway:wght@200;300;500&display=swap" rel="stylesheet">    
+<!-- <link type="text/css" rel="stylesheet" href="prefixed.css"> -->
+<link type="text/css" rel="stylesheet" href="search.css">
+<link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<script type="module" src="/@juggle/resize-observer/lib/exports/resize-observer.js"></script>
+<script type="module" src="/containerListener.js"></script>
+
+<!-- ############################# -->
+
+<div class="load-screen"></div>
+<div class="ghost"></div>
+<div class="nav-btn">
+    <div class="ham-icon">
+        <div class="hamburger"></div>
+    </div>
+    <div class="page-selector"></div>
+    <div class="btn btn-1 btn-active">
+        HOME
+    </div>
+    <div class="btn btn-2">
+        ACCOUNT
+    </div>
+    <div class="btn btn-3">
+        ABOUT
+    </div>
+    <div class="btn btn-4">
+        DEVELOPER
+    </div>
+</div>
+<div class="all-pages-container">
+    <!-- ############################################################## -->
+    <!%- include('partials/summary'); %>
+    <!-- ############################################################## -->
+    <div class="fs container active scale">
+        
+        <div class="fs-nav">
+            <div class="logo-box">
+                <img class="logo" src="img/Logo.png" alt="">
             </div>
-            <!-- <div>
-                Full Screen
-            </div> -->
-        <!-- </div> -->
-        <!-- <div class="btn btn-1">
-            <div>
-                Summary
+            <div class="fs-nav-item profile-btn first selected">Profile</div>
+            <div class="fs-nav-item candlestick-btn">Price Analysis</div>
+            <div class="fs-nav-item price-data-btn">Price Data</div>
+            <div class="fs-nav-item stats-btn">Statistics</div>
+            <div class="fs-nav-item ratios-btn">Ratios</div>
+            <div class="fs-nav-item growth-btn">Growth</div>
+            <h2>Financials</h2>
+            <div class="fs-nav-item is-btn">Income Statement</div>
+            <div class="fs-nav-item bs-btn">Balance Sheet</div>
+            <div class="fs-nav-item cfs-btn">Cash Flows</div>
+            <div class="fs-collapse-nav"></div>
+        </div>
+        <div class="fs-content">
+            <div class="top" data-observe-resizes>
+                <div class="fs-search-box">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
+                        <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
+                        </svg>
+                    <input class="fs-search-text" placeholder="Search Companies" type="text"></input>
+                </div>
+                <div class="underline" style="
+                    border-bottom: solid rgb(233, 234, 238) 1px; 
+                    width: calc(100% - 50px); margin-left: 25px; top: 40px;
+                    position: relative;">
+                </div>
+                <div class="top-info">
+                    <div class="company-pic"></div>
+                    <div class="company-highlights-box">
+                        <div class="company-name">Company Name</div>
+                        <div class="company-stats-box">
+                            <img src="img/mkcap.svg" alt="" style="width: 15px; filter: invert(.5);">
+                            <div class="company-stat">Market Cap: 24B</div>
+                            <img src="img/stockup.svg" alt="" style="width: 15px; margin-left: 25px; transform: rotate(-45deg); filter: hue-rotate(-60deg);">
+                            <div class="company-stat">Share Price: $167.23</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div> -->
-        <div class="page-selector"></div>
-        <div class="btn btn-1 btn-active">
-            HOME
-            <!-- <img src="img/home.svg" alt=""> -->
-        </div>
-        <div class="btn btn-2">
-            ACCOUNT
-            <!-- <img src="img/account.svg" alt=""> -->
-        </div>
-        <div class="btn btn-3">
-            ABOUT
-            <!-- <img src="img/about.png" alt=""> -->
-        </div>
-        <div class="btn btn-4">
-            DEVELOPER
-            <!-- <img src="img/coderwall.svg" alt=""> -->
+            <div class="variable-content">
+                <!-- <div class="fs-table-title">Financial Statement</div>
+                <div class="fs-table-outer">
+                    <table>
+                        <tbody>
+                        
+                        </tbody>
+                    </table>
+                </div> -->
+                <!-- ####################################### -->
+                <!-- <div class="candlestick-content">
+
+                </div> -->
+                <!-- ####################################### -->
+                <div class="sum-content" data-observe-resizes>
+                    
+                    <div class="sum-grid">
+                        <div class="grid-item grid-item-1">
+                            Symbol:
+                            Price: 
+                            52wk high:
+                            52wk low:
+                        </div>
+                        <div class="grid-item grid-item-2">
+                            <h1>Description</h1>
+                            Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
+                        </div>
+                        <div class="grid-item grid-item-3">
+                            lastDiv:
+                            Beta: 
+                            volAvg: 
+                            Exchange: 
+                            Industry:
+                            Sector:
+                            CEO:
+                        </div>
+                        <div class="grid-item grid-item-4">
+                            <h1>Rating</h1> - Strong Buy
+                            Overall: 5
+                            P/B: 5
+                            ROA: 5
+                            DCF: 3
+                            P/E: 5
+                            ROE: 5
+                            D/E: 3
+                        </div>
+                        <div class="grid-item grid-item-5">
+                            <!-- Styles -->
+                            <style>
+                        #pricechart {
+                        width: 100%;
+                        height: 100%;
+                        max-width: 100%;
+                        }
+                        #pricechart * {
+                            transition: 0s;
+                        }
+                        
+                        #controls {
+                        overflow: hidden;
+                        padding-bottom: 3px;
+                        }
+                            </style>
+
+                            <!-- Resources -->
+                            <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+                            <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+                            <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
+                            <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+
+                            <!-- HTML -->
+                            <div id="controls"></div>
+                            <div id="pricechart"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="sum-content-title">
+                        <!-- Operating Performance -->
+                    </div>
+                    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                    <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
+                    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    <div class="graph-box">
+                        <div id="chartdiv"></div>
+                    </div>
+                </div>
+                <!-- ####################################### -->
+            </div>
         </div>
     </div>
-
-    <div class="all-pages-container">
-        <!-- ############################################################## -->
-        <!%- include('partials/summary'); %>
-        <!-- ############################################################## -->
-        <div class="fs container active scale">
+    <div class="account container scale">
+        <% if (loggedIn) { %>
+            <div class="welcome-box">Welcome, <%- user.name %></div>
+            <a href="/users/logout" class="logout-box">Logout</a>
+            <h2>My Favorites</h2>
+        <% } else {%>
+            <div></div>
+            <a href="/users/login" class="logout-box">Login</a>
+            <h2>Popular Models</h2>
+        <% } %>
+        
+        <div class="favorites-box">
             
-            <div class="fs-nav">
-                <div class="logo-box">
-                    <img class="logo" src="img/Logo.png" alt="">
+        </div>
+        <% if (loggedIn) { %>
+            <%- user._id = null %>
+            <%- user.date = null %>
+            <script>
+            window.user = <%- user %>;
+            console.log(user);
+            user.favorites.forEach((el, index, array) => {
+                let favorite = `
+                    <div class="favorite" id="fav-${index}">
+                        ${el.companyName}
+                    </div>
+                `;
+                document.querySelector('.favorites-box').insertAdjacentHTML('beforeend', favorite);
+                document.querySelector(`#fav-${index}`).style.backgroundImage = `url('${el.image}')`;
+            });
+
+            </script>
+        <% } %>
+        <script>
+            window.loggedIn = <%-loggedIn%>;
+        </script>
+
+
+    </div>
+    <div class="abt container scale">
+        <div class="abt-header"></div>
+        <div class="abt-body">  <!-- content wrapper -->
+                <div id="abt-parallax-1"></div>
+                <div class="tips">
+                    ← use arrow keys to swith tabs →
                 </div>
-                <div class="fs-nav-item profile-btn first selected">Profile</div>
-                <div class="fs-nav-item candlestick-btn">Price Analysis</div>
-                <div class="fs-nav-item price-data-btn">Price Data</div>
-                <div class="fs-nav-item stats-btn">Statistics</div>
-                <div class="fs-nav-item ratios-btn">Ratios</div>
-                <div class="fs-nav-item growth-btn">Growth</div>
-                <h2>Financials</h2>
-                <div class="fs-nav-item is-btn">Income Statement</div>
-                <div class="fs-nav-item bs-btn">Balance Sheet</div>
-                <div class="fs-nav-item cfs-btn">Cash Flows</div>
-                <div class="fs-collapse-nav"></div>
+
+        </div>
+        <h2>
+            Modelia Brings Advanced Financial Modeling to the Average Investor
+        </h2>
+        <div class="abt-body-1 abt-text-box">
+            Modelia was built to ensure that every user has access to the best financial tools, not just just big banks and professional investment services. Modelia gives you access to industry data in a clean organized way, to simplify financial analysis.
+        </div>
+        <div class="abt-body-2 abt-text-box">
+            Look up companies by name or ticker and access historical financial statements, key financial statistics, operating performance, and more.
+        </div>
+        <div class="abt-body-3 abt-text-box">
+            What used to take tedious manipulation of cells in Excel can now be automated instantly and error free.
+        </div>
+        <video loop autoplay alt="Video not available">
+            <source src="CiscoModel.mp4" type="video/mp4"/>
+        </video>
+    </div>
+    <div class="dev container scale">
+        <div class="white-box">
+            <div class="photo">
+                <canvas id="canvas1"></canvas>
             </div>
-            <div class="fs-content">
-                <div class="top" data-observe-resizes>
-                    <div class="fs-search-box">
-                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
-                            <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
-                            </svg>
-                        <input class="fs-search-text" placeholder="Search Companies" type="text"></input>
+            <div class="bio">
+                TRISTAN<br>LALOR
+                <br>
+                <div class="dev-title">DEVELOPER</div>
+                <div class="socials-box">
+                    <div>
+                        tristanlalor@gmail.com <br>
+                        Tel. 802 - 379 - 0996 <br> <br>
                     </div>
-                    <div class="underline" style="
-                        border-bottom: solid rgb(233, 234, 238) 1px; 
-                        width: calc(100% - 50px); margin-left: 25px; top: 40px;
-                        position: relative;">
+                    <div class="icon-link">
+                        <img class="icon" src="img/website.png" alt="">
+                        <a href="https://www.tristanlalor.com/">tristanlalor.com</a>
                     </div>
-                    <div class="top-info">
-                        <div class="company-pic"></div>
-                        <div class="company-highlights-box">
-                            <div class="company-name">Company Name</div>
-                            <div class="company-stats-box">
-                                <img src="img/mkcap.svg" alt="" style="width: 15px; filter: invert(.5);">
-                                <div class="company-stat">Market Cap: 24B</div>
-                                <img src="img/stockup.svg" alt="" style="width: 15px; margin-left: 25px; transform: rotate(-45deg); filter: hue-rotate(-60deg);">
-                                <div class="company-stat">Share Price: $167.23</div>
-                            </div>
-                        </div>
+                    <br>
+                    <div class="icon-link">
+                        <img class="icon" src="img/linkedin.png" alt="">
+                        <a href="https://www.linkedin.com/in/tristanlalor">linked.com/in/tristanlalor</a>
+                    </div>
+                    <br>
+                    <div class="icon-link">
+                        <img class="icon" src="img/github.png" alt="">
+                        <a href="https://www.github.com/tristanlalor/">github.com/tristanlalor</a>
                     </div>
                 </div>
-                <div class="variable-content">
-                    <!-- <div class="fs-table-title">Financial Statement</div>
-                    <div class="fs-table-outer">
-                        <table>
-                            <tbody>
-                            
-                            </tbody>
-                        </table>
-                    </div> -->
-                    <!-- ####################################### -->
-                    <!-- <div class="candlestick-content">
-
-                    </div> -->
-                    <!-- ####################################### -->
-                    <div class="sum-content" data-observe-resizes>
+                <div class="dev-title" style="height: 22px;"></div>
+                <div class="education-box">
+                    <div>
+                        <div class="bio-header">EDUCATION</div><br>
+                        <div class="italics">B.S. Data Analytics / Finance</div>
+                        University of Vermont <br>
+                        Graduated May 2020 <br> <br>
                         
-                        <div class="sum-grid">
-                            <div class="grid-item grid-item-1">
-                                Symbol:
-                                Price: 
-                                52wk high:
-                                52wk low:
-                            </div>
-                            <div class="grid-item grid-item-2">
-                                <h1>Description</h1>
-                                Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.
-                            </div>
-                            <div class="grid-item grid-item-3">
-                                lastDiv:
-                                Beta: 
-                                volAvg: 
-                                Exchange: 
-                                Industry:
-                                Sector:
-                                CEO:
-                            </div>
-                            <div class="grid-item grid-item-4">
-                                <h1>Rating</h1> - Strong Buy
-                                Overall: 5
-                                P/B: 5
-                                ROA: 5
-                                DCF: 3
-                                P/E: 5
-                                ROE: 5
-                                D/E: 3
-                            </div>
-                            <div class="grid-item grid-item-5">
-                                <!-- Styles -->
-                                <style>
-                            #pricechart {
-                            width: 100%;
-                            height: 100%;
-                            max-width: 100%;
-                            }
-                            #pricechart * {
-                                transition: 0s;
-                            }
-                            
-                            #controls {
-                            overflow: hidden;
-                            padding-bottom: 3px;
-                            }
-                                </style>
-    
-                                <!-- Resources -->
-                                <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-                                <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-                                <script src="https://cdn.amcharts.com/lib/4/plugins/rangeSelector.js"></script>
-                                <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-    
-    
-    
-                                <!-- HTML -->
-                                <div id="controls"></div>
-                                <div id="pricechart"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="sum-content-title">
-                            <!-- Operating Performance -->
-                        </div>
-                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
-                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-                        <script src="https://www.amcharts.com/lib/4/themes/dark.js"></script>
-                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-                        <div class="graph-box">
-                            <div id="chartdiv"></div>
-                        </div>
+                        Cumulative GPA: 3.72 <br>
+                        Computer Science GPA: 4.0 <br>
+                        Finance GPA: 4.0
                     </div>
-                    <!-- ####################################### -->
+                </div>
+                <div class="dev-title" style="height: 22px;"></div>
+                <div class="resume">
+                    <a href="Tristan Lalor Resume.pdf">DOWNLOAD RESUME</a>
                 </div>
             </div>
         </div>
-        <div class="account container scale">
-            <% if (loggedIn) { %>
-                <div class="welcome-box">Welcome, <%- user.name %></div>
-                <a href="/users/logout" class="logout-box">Logout</a>
-                <h2>My Favorites</h2>
-            <% } else {%>
-                <div></div>
-                <a href="/users/login" class="logout-box">Login</a>
-                <h2>Popular Models</h2>
-            <% } %>
-            
-            <div class="favorites-box">
+        
+        <div class="gray-box">
+            <div class="gray-box-main">
+                <heading class="heading"><strong>PROFILE</strong></heading>
+                Hi, thanks for checking out my app. I am a recent graduate of the University of Vermont where I studied Analytics, Finance, and Computer Science. I am looking for a position as a front-end web developer. I'm eager to learn new technologies and am a quick and self driven learner. Please don't hesitate to reach out!
+                <br><br>
+                <heading class="heading"><strong>OTHER PROJECTS</strong></heading>
+
+                <a class="bio-header">LANDLORD HIVE</a>
+                <div class="spacer-1"></div>
+                <a class="italics">Javascript / Ruby on Rails / PostgreSQL</a> 
+                <div class="spacer-1"></div>
+                Inspired by ‘RateMyProfessors.com’, Landlord Hive is an application that allows tenants to rate their landlords on their communication skills, organization, and ability to resolve issues. The site uses a custom search algorithm that builds SQL queries from users’ input to return results from the database.
+                
+                <div class="spacer-2"></div>
+
+                <a class="bio-header">INTELLIGENT BATTLESHIP</a>
+                <div class="spacer-1"></div>
+                <a class="italics">Java / JavaFX</a> 
+                <div class="spacer-1"></div>
+                Intelligent Battleship is a self-contained object-oriented application for Mac OS written in pure Java. The game AI uses optimal strategies to sink ships and moves systematically to beat the user in as little moves as possible.
+                
+                <div class="spacer-2"></div>
+
+                <a class="bio-header">CUSTOMAIL.CO</a>
+                <div class="spacer-1"></div>
+                <a class="italics">Javascript / CSS / HTML</a> 
+                <div class="spacer-1"></div>
+                Customail.co allows users to generate links that will open a new email with the specified address, subject, and body. Users can create their own alternate text, or obtain a direct link which can be used on websites like Twitter that do not support custom links.
+                
+                <div class="spacer-2"></div>
+
+                <a class="bio-header">BLACK LIVES MATTER DATA VISUALIZATION</a>
+                <div class="spacer-1"></div>
+                <a class="italics">Javascript / CSS / HTML</a> 
+                <div class="spacer-1"></div>
+                This project retrieves data from a Washington Post database of all people killed by police since 2015 in the US. Each name of the thousands of names are encorporated into the piece in an expirmental way using CSS flexbox and mix blend mode.
+
+                <br><br>
+                <heading class="heading"><strong>EXPERIENCE</strong></heading>
+                <a class="bio-header">DATA ANALYTICS INTERN</a>
+                <div class="spacer-1"></div>
+                <a class="italics">VCS Corporate Headquarters, Manchester, Vermont</a> 
+                <div class="spacer-1"></div>
+                <ul>
+                    <li>Designed and implemented a relational database using Python and SQL.</li>
+                    <li>Analyzed marketing data to provide performance recommendations.</li>
+                    <li>Created a forecasting model to modify projected earnings.</li>
+                </ul>
+
+                <div class="spacer-2"></div>
+
+                <a class="bio-header">TEACHING ASSISTANT</a>
+                <div class="spacer-1"></div>
+                <a class="italics">UVM MBA Program, Burlington, Vermont</a> 
+                <div class="spacer-1"></div>
+                <ul>
+                    <li>Tutor MBA students on advanced valuation, statistical, and mathematical concepts.</li>
+                </ul>
                 
             </div>
-            <% if (loggedIn) { %>
-                <%- user._id = null %>
-                <%- user.date = null %>
-                <script>
-                window.user = <%- user %>;
-                console.log(user);
-                user.favorites.forEach((el, index, array) => {
-                    let favorite = `
-                        <div class="favorite" id="fav-${index}">
-                            ${el.companyName}
-                        </div>
-                    `;
-                    document.querySelector('.favorites-box').insertAdjacentHTML('beforeend', favorite);
-                    document.querySelector(`#fav-${index}`).style.backgroundImage = `url('${el.image}')`;
-                });
-
-                </script>
-            <% } %>
-            <script>
-                window.loggedIn = <%-loggedIn%>;
-            </script>
-
-
         </div>
-        <div class="abt container scale">
-            <div class="abt-header"></div>
-            <div class="abt-body">  <!-- content wrapper -->
-                    <div id="abt-parallax-1"></div>
-                    <div class="tips">
-                        ← use arrow keys to swith tabs →
-                    </div>
-                    <!-- <div id="abt-parallax-cover"></div> -->
-            </div>
-            <h2>
-                Modelia Brings Advanced Financial Modeling to the Average Investor
-            </h2>
-            <div class="abt-body-1 abt-text-box">
-                Modelia was built to ensure that every user has access to the best financial tools, not just just big banks and professional investment services. Modelia gives you access to industry data in a clean organized way, to simplify financial analysis.
-            </div>
-            <div class="abt-body-2 abt-text-box">
-                Look up companies by name or ticker and access historical financial statements, key financial statistics, operating performance, and more.
-            </div>
-            <div class="abt-body-3 abt-text-box">
-                What used to take tedious manipulation of cells in Excel can now be automated instantly and error free.
-            </div>
-            <video loop autoplay alt="Video not available">
-                <source src="CiscoModel.mp4" type="video/mp4"/>
-            </video>
-        </div>
-        <div class="dev container scale">
-            <!-- <img class="full-screen-icon" src="full-screen.png" alt="" style="filter: invert(1);"> -->
-            <div class="white-box">
-                <div class="photo">
-                    <canvas id="canvas1"></canvas>
-                </div>
-                <div class="bio">
-                    TRISTAN<br>LALOR
-                    <br>
-                    <div class="dev-title">DEVELOPER</div>
-                    <div class="socials-box">
-                        <div>
-                            tristanlalor@gmail.com <br>
-                            Tel. 802 - 379 - 0996 <br> <br>
-                        </div>
-                        <div class="icon-link">
-                            <img class="icon" src="img/website.png" alt="">
-                            <a href="https://www.tristanlalor.com/">tristanlalor.com</a>
-                        </div>
-                        <br>
-                        <div class="icon-link">
-                            <img class="icon" src="img/linkedin.png" alt="">
-                            <a href="https://www.linkedin.com/in/tristanlalor">linked.com/in/tristanlalor</a>
-                        </div>
-                        <br>
-                        <div class="icon-link">
-                            <img class="icon" src="img/github.png" alt="">
-                            <a href="https://www.github.com/tristanlalor/">github.com/tristanlalor</a>
-                        </div>
-                    </div>
-                    <div class="dev-title" style="height: 22px;"></div>
-                    <div class="education-box">
-                        <div>
-                            <div class="bio-header">EDUCATION</div><br>
-                            <div class="italics">B.S. Data Analytics / Finance</div>
-                            University of Vermont <br>
-                            Graduated May 2020 <br> <br>
-                            
-                            Cumulative GPA: 3.72 <br>
-                            Computer Science GPA: 4.0 <br>
-                            Finance GPA: 4.0
-                        </div>
-                    </div>
-                    <div class="dev-title" style="height: 22px;"></div>
-                    <div class="resume">
-                        <a href="Tristan Lalor Resume.pdf">DOWNLOAD RESUME</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="gray-box">
-                <div class="gray-box-main">
-                    <heading class="heading"><strong>PROFILE</strong></heading>
-                    Hi, thanks for checking out my app. I am a recent graduate of the University of Vermont where I studied Analytics, Finance, and Computer Science. I am looking for a position as a front-end web developer. I'm eager to learn new technologies and am a quick and self driven learner. Please don't hesitate to reach out!
-                    <br><br>
-                    <heading class="heading"><strong>OTHER PROJECTS</strong></heading>
-
-                    <a class="bio-header">LANDLORD HIVE</a>
-                    <div class="spacer-1"></div>
-                    <a class="italics">Javascript / Ruby on Rails / PostgreSQL</a> 
-                    <div class="spacer-1"></div>
-                    Inspired by ‘RateMyProfessors.com’, Landlord Hive is an application that allows tenants to rate their landlords on their communication skills, organization, and ability to resolve issues. The site uses a custom search algorithm that builds SQL queries from users’ input to return results from the database.
-                    
-                    <div class="spacer-2"></div>
-
-                    <a class="bio-header">INTELLIGENT BATTLESHIP</a>
-                    <div class="spacer-1"></div>
-                    <a class="italics">Java / JavaFX</a> 
-                    <div class="spacer-1"></div>
-                    Intelligent Battleship is a self-contained object-oriented application for Mac OS written in pure Java. The game AI uses optimal strategies to sink ships and moves systematically to beat the user in as little moves as possible.
-                    
-                    <div class="spacer-2"></div>
-
-                    <a class="bio-header">CUSTOMAIL.CO</a>
-                    <div class="spacer-1"></div>
-                    <a class="italics">Javascript / CSS / HTML</a> 
-                    <div class="spacer-1"></div>
-                    Customail.co allows users to generate links that will open a new email with the specified address, subject, and body. Users can create their own alternate text, or obtain a direct link which can be used on websites like Twitter that do not support custom links.
-                    
-                    <div class="spacer-2"></div>
-
-                    <a class="bio-header">BLACK LIVES MATTER DATA VISUALIZATION</a>
-                    <div class="spacer-1"></div>
-                    <a class="italics">Javascript / CSS / HTML</a> 
-                    <div class="spacer-1"></div>
-                    This project retrieves data from a Washington Post database of all people killed by police since 2015 in the US. Each name of the thousands of names are encorporated into the piece in an expirmental way using CSS flexbox and mix blend mode.
-
-                    <br><br>
-                    <heading class="heading"><strong>EXPERIENCE</strong></heading>
-                    <a class="bio-header">DATA ANALYTICS INTERN</a>
-                    <div class="spacer-1"></div>
-                    <a class="italics">VCS Corporate Headquarters, Manchester, Vermont</a> 
-                    <div class="spacer-1"></div>
-                    <ul>
-                        <li>Designed and implemented a relational database using Python and SQL.</li>
-                        <li>Analyzed marketing data to provide performance recommendations.</li>
-                        <li>Created a forecasting model to modify projected earnings.</li>
-                    </ul>
-
-                    <div class="spacer-2"></div>
-
-                    <a class="bio-header">TEACHING ASSISTANT</a>
-                    <div class="spacer-1"></div>
-                    <a class="italics">UVM MBA Program, Burlington, Vermont</a> 
-                    <div class="spacer-1"></div>
-                    <ul>
-                        <li>Tutor MBA students on advanced valuation, statistical, and mathematical concepts.</li>
-                    </ul>
-                    
-
-
-                </div>
-            </div>
-        </div>
-        <div class="transition-outer">
-            <div class="transition">
-        
-            </div>
-        </div>
-
     </div>
+    <div class="transition-outer">
+        <div class="transition">
+    
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script type="module" src="/apiHandler.js"></script>
+<script type="module" src="/fs.js"></script>
+<script type="module" src="/graphs.js"></script>
+<script type="module" src="/main.js"></script>
+<script type="module" src="/particles.js"></script>
+<script type="module" src="/summary.js"></script>
+<script type="module" src="/scrollMagic.js"></script>
+<script type="module" src="/candlesticks.js"></script>
+<script type="module" src="/tables.js"></script>
+
+<!-- ############################# -->

@@ -1,7 +1,6 @@
 import * as graphlib from '/graphs.js';
 import * as fs from '/fs.js';
 import * as APIHandler from '/apiHandler.js';
-// import { post } from '../routes';
 
 export let symbol;
 if (localStorage.getItem("symbol") == null) {
@@ -12,18 +11,13 @@ if (localStorage.getItem("symbol") == null) {
 export let relevantQuery = "";
 
 //############################################################
-//Symbol Handler
-// const symbolHandler = () => {
-//     document.querySelector('.fs-search-text').addEventListener('change', () => {
-//         localStorage.clear();
-//         symbol = document.querySelector('.fs-search-text').value;
-//         console.log("LOGGING");
-//         topInit();
-//     });
-// }
 const resultClicked = (ticker) => {
     //make profile the active button
-        //code
+    Array.prototype.slice.call(document.querySelectorAll(".fs-nav-item")).forEach((el) => {
+        el.classList.remove('selected');
+     });
+    document.querySelector('.profile-btn').classList.add('selected');
+
     fs.setNumYears(5);
     document.querySelector('.search-icon').style.transform = "rotate(90deg)";
     document.querySelector('.loading img').style.opacity = 0;
@@ -36,18 +30,15 @@ const resultClicked = (ticker) => {
 
     let content = document.querySelector('.fs-content');
     if (content.classList.contains('fs-full')) fs.fsCollapseNav();
-    console.log(`New Ticker is ${ticker}`);
 }
 window.resultClicked = resultClicked;
 const removeEventHandlers = () => {
-    console.log("destroying event handlers");
+    //destroying event handlers
     document.removeEventListener('keyup', keyUpEventHandler);
     document.removeEventListener('click', focusOutClick);
-    // document.querySelector('.fs-search-text').removeEventListener('focus', focusEventHandler);
 }
 const focusOutClick = (event) => {
     document.querySelector('.loading img').style.opacity = 0;
-    console.log(event.target.classList[0]);
     if (event.target.classList[0] != "fs-search-text" && document.activeElement.classList[0] != "fs-search-text") {
         document.querySelector('.search-icon').style.transform = "none";
         document.querySelector('.fs-search-results').innerHTML = "";
@@ -58,7 +49,7 @@ window.resultClicked = resultClicked;
 
 let createSearchResultHTML = (companyName, ticker) => {
     let searchResult = `
-            <div class="fs-search-result" onclick="resultClicked(this.children[0].innerHTML.trim()); console.log('CLICK')">
+            <div class="fs-search-result" onclick="resultClicked(this.children[0].innerHTML.trim());">
                 <div>
                     ${ticker}
                 </div>
@@ -70,21 +61,16 @@ let createSearchResultHTML = (companyName, ticker) => {
     return searchResult;
 }
 const keyUpEventHandler = async () => {
-    console.log("keypress detected");
+    //keypress detected
         if (document.querySelector('.fs-search-text').value != "") {
             //add loading icon
-            //afterstart fs-search-results
-            // if (document.querySelector('.loading') == null) {
-            //     document.querySelector('.fs-search-results').insertAdjacentHTML('afterbegin', '<div class="loading"><img src="img/loader.svg"></div>');
-            // }
             if (document.querySelector('.loading img').style.opacity == 0) {
                 document.querySelector('.loading img').style.opacity = 1;
             }
             let query = document.querySelector('.fs-search-text').value;
-            console.log("short circuiting other queries");
+            //short circuiting other queries
             relevantQuery = query;
             let searchResultsData = await APIHandler.fetchSearchResults(query);
-            // let searchResults = `<div class="fs-search-results">`;
             let searchResults = "";
             searchResultsData.forEach((el, index) => {
                 let searchResult = createSearchResultHTML(el.name, el.symbol);
@@ -101,11 +87,10 @@ const keyUpEventHandler = async () => {
                 document.querySelector('.fs-search-results').innerHTML = searchResults;
                 document.querySelector('.loading img').style.opacity = 0;
             }
-
         }
 }
 const focusEventHandler = () => {
-    console.log("focus detected");
+    //focus detected
     document.querySelector('.search-icon').style.transform = "rotate(90deg)";
     document.addEventListener('keyup', keyUpEventHandler);
     document.addEventListener('click', focusOutClick);
@@ -115,46 +100,38 @@ const searchHandler = () => {
     document.querySelector('.fs-search-text').addEventListener('focus', focusEventHandler);
 }
 
-//############################################################
-
 //##############################
-//             1. GET DATA
+//            GET DATA
 //##############################
 let profileData, quoteData, ratingData;
 export const getProfileData = async () => {
     if (localStorage.getItem("profileData") == null) {
-        console.log("fetching profileData and storing in localStorage");
+        //fetching profileData and storing in localStorage
         profileData = await APIHandler.generalFetch("profile", symbol);
         localStorage.setItem("profileData", JSON.stringify(profileData));
-        console.log(profileData);
     } else {
-        console.log("retrieving profileData from localStorage");
+        //retrieving profileData from localStorage
         profileData = JSON.parse(localStorage.getItem("profileData"));
-        console.log(profileData);
     }
 }
 export const getQuoteData = async () => {
     if (localStorage.getItem("quoteData") == null) {
-        console.log("fetching quoteData and storing in localStorage");
+        //fetching quoteData and storing in localStorage
         quoteData = await APIHandler.generalFetch("quote", symbol);
         localStorage.setItem("quoteData", JSON.stringify(quoteData));
-        console.log(quoteData);
     } else {
-        console.log("retrieving quoteData from localStorage");
+        //retrieving quoteData from localStorage
         quoteData = JSON.parse(localStorage.getItem("quoteData"));
-        console.log(quoteData);
     }
 }
 export const getRatingData = async () => {
     if (localStorage.getItem("ratingData") == null) {
-        console.log("fetching ratingData and storing in localStorage");
+        //fetching ratingData and storing in localStorage
         ratingData = await APIHandler.generalFetch("rating", symbol);
         localStorage.setItem("ratingData", JSON.stringify(ratingData));
-        console.log(ratingData);
     } else {
-        console.log("retrieving ratingData from localStorage");
+        //retrieving ratingData from localStorage
         ratingData = JSON.parse(localStorage.getItem("ratingData"));
-        console.log(ratingData);
     }
 }
 
@@ -186,7 +163,7 @@ export const nFormatter = (num, digits) => {
 
 
 const updateFavorites = () => {
-    console.log("UPDATING FAVORITES");
+    //UPDATING FAVORITES
     let favoritesHTML = ``;
     let array;
     if (loggedIn) {
@@ -221,9 +198,6 @@ const updateFavorites = () => {
             </div>
         `;
     });
-    // let favoritesHTML = `
-    // ${loggedIn ? favoritesIterative : "PLEASE LOG IN"}
-    // `;
     favoritesHTML += `
         <i aria-hidden="true"></i>
         <i aria-hidden="true"></i>
@@ -236,11 +210,7 @@ const updateFavorites = () => {
     
     array.forEach((el, index, array) => {
         document.querySelector(`#fav-${index}`).style.backgroundImage = `url('${el.image}')`;
-        console.log('ADDING BACKDROP FILTER');
-        document.querySelector(`#fav-${index}`).style.backdropFilter = `blur(5px);`;
     });
-
-    
 }
 
 const defaultFavorites = [
@@ -309,33 +279,18 @@ export const topInit = async () => {
     await getProfileData();
     await getQuoteData();
     await getRatingData();
-    const oldSearch = `
+    const search = `
     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
-                    <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
-                    </svg>
-                <input class="fs-search-text" placeholder="Search Companies" type="text"></input>
-                <div class="loading"><img src="img/loader2.svg"></div>
-    `;
-    const newSearch = `
-    <div class="search">
-    <div class="icon">
-        <span>
-            <svg viewBox="0 0 30 30">
-                <path d="M3,3 L37,37"></path>
-            </svg>
-        </span>
-    </div>
-    <div class="field">
-        <input class="fs-search-text" type="text" placeholder="Search companies...">
-    </div>
-</div>
+        <path d="M8.3283 0C3.73857 0 0 3.73857 0 8.3283C0 12.918 3.73857 16.6566 8.3283 16.6566C10.3242 16.6566 12.1571 15.9479 13.5937 14.7714L18.5663 19.7439C18.643 19.8239 18.7349 19.8877 18.8366 19.9316C18.9383 19.9756 19.0478 19.9988 19.1586 20C19.2694 20.0011 19.3793 19.9801 19.4819 19.9382C19.5845 19.8963 19.6777 19.8344 19.756 19.756C19.8344 19.6777 19.8963 19.5845 19.9382 19.4819C19.9801 19.3793 20.0011 19.2694 20 19.1586C19.9988 19.0478 19.9756 18.9383 19.9316 18.8366C19.8877 18.7349 19.8239 18.643 19.7439 18.5663L14.7714 13.5937C15.9479 12.1571 16.6566 10.3242 16.6566 8.3283C16.6566 3.73857 12.918 0 8.3283 0ZM8.3283 1.66566C12.0178 1.66566 14.9909 4.63876 14.9909 8.3283C14.9909 12.0178 12.0178 14.9909 8.3283 14.9909C4.63876 14.9909 1.66566 12.0178 1.66566 8.3283C1.66566 4.63876 4.63876 1.66566 8.3283 1.66566Z"></path>
+    </svg>
+    <input class="fs-search-text" placeholder="Search Companies" type="text"></input>
+    <div class="loading"><img src="img/loader2.svg"></div>
     `;
 
-    console.log(JSON.parse(localStorage.getItem("profileData"))[0].image);
     if (profileData['0'] != undefined) {
         let topContent = `
             <div class="fs-search-box">
-                ${oldSearch}
+                ${search}
             </div>
             <div class="fs-search-results"></div>
             <div class="underline" style="
@@ -392,8 +347,6 @@ export const topInit = async () => {
         document.querySelector('.top').innerHTML = topContent;
         document.querySelector('.loading img').style.opacity = 0;
         document.querySelector('.company-pic').style.backgroundImage = `url('${profileData['0'].image}')`;
-        // searchHandler();
-        // document.querySelector('.fs-search-box').insertAdjacentHTML('afterend', searchResults);
         profileInit();
         searchHandler();
         
@@ -414,8 +367,7 @@ export const topInit = async () => {
             add ? user.favorites.push(data) : user.favorites = user.favorites.filter( (obj) => {
                 return obj.symbol !== localStorage.getItem("symbol");
             });
-            console.log(data);
-            console.log("HANDLING POST: ");
+            //HANDLING POST
             event.preventDefault();  
             var request = new Request("/users/update", {
                 method: 'POST', 
@@ -424,7 +376,7 @@ export const topInit = async () => {
                             'Content-Type': 'application/json'
                         }, 
                 body: JSON.stringify(data)});
-            console.log(add ? "ADDING FAVORITE" : "REMOVING FAVORITE");
+            //ADDING FAVORITE / REMOVING FAVORITE");
             post(request); 
             updateFavorites();
         } 
@@ -433,7 +385,7 @@ export const topInit = async () => {
     } else {
         let topContent = `
             <div class="fs-search-box">
-                ${oldSearch}
+                ${search}
             </div>
             <div class="fs-search-results"></div>
             <div class="underline" style="

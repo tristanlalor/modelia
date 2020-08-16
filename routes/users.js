@@ -91,34 +91,13 @@ router.post('/login', (req, res, next) => {
 //DB Config
 const db = require('../config/keys').MongoURI;
 
-//add favorite handle
-// router.post('/update', (req, res, next) => {
-//     // passport.authenticate('local', {
-//     //     successRedirect: '/dashboard',
-//     //     failureRedirect: '/users/login',
-//     //     failureFlash: true
-//     // })(req, res, next);
-//     const { symbol } = req.body;
-//     if (req.user) {
-//         db.updateUser( req.user.username,
-//             {
-//                 favorites : req.user.favorites.push(symbol),
-//                 roles : [
-//                         { role : "read", db : "assets"  }
-//                         ]
-//             }
-//         );
-//     } else {
-//         console.log("not logged in");
-//     }
-// });
+//add favorite
 router.post('/update', (req, res, next) => {
     updateRecord(req,res);
 });
 const updateRecord = (req, res) => {
     User.findOne({_id:req.user.id},(err,doc)=>{
      //this will give you the document what you want to update.. then 
-        // console.log(doc);
         if (req.body.add) {
             console.log(req.body);
             doc.favorites.push({symbol: req.body.symbol, image: req.body.image, companyName: req.body.companyName});

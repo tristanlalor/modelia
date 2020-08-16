@@ -160,7 +160,8 @@ let drawImage = () => {
 
 
 window.addEventListener('load', e => {
-    console.log('page has loaded');
+    //page has loaded
+    
     // let hRatio = canvas.width / png.width;
     // let vRatio = canvas.height / png.height;
     // let ratio  = Math.max ( hRatio, vRatio );

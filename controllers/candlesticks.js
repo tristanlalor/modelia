@@ -48,7 +48,6 @@ const changeDays = () => {
     document.querySelector('#numDays').removeEventListener('change', changeDays);
     //dispose of chart!!!!!
     numDays = setNumDays();
-    console.log({numDays});
     drawChart(numDays);
     document.querySelector('#numDays').addEventListener('change', changeDays);
 }

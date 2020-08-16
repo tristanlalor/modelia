@@ -3,36 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Raleway:wght@200;300;500&display=swap" rel="stylesheet">    
-    <link type="text/css" rel="stylesheet" href="style.css">
-    <!-- <link type="text/css" rel="stylesheet" href="prefixed.css"> -->
-    <link type="text/css" rel="stylesheet" href="search.css">
-    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <title>Modelia</title>
-    <script type="module" src="/@juggle/resize-observer/lib/exports/resize-observer.js"></script>
-    <script type="module" src="/containerListener.js"></script>
+    <%- typeof path !== 'undefined' ? path == "/" ? `<link type="text/css" rel="stylesheet" href="style.css">` : `` : ``;%>
 </head>
 <body>
-    <!-- <div class="container"> -->
-        <%- body %>
-    <!-- </div> -->
-    <script type="module" src="containerListener.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script type="module" src="/about.js"></script>
-    <script type="module" src="/apiHandler.js"></script>
-    <script type="module" src="/fs.js"></script>
-    <script type="module" src="/graphs.js"></script>
-    <script type="module" src="/main.js"></script>
-    <script type="module" src="/particles.js"></script>
-    <script type="module" src="/summary.js"></script>
-    <script type="module" src="/scrollMagic.js"></script>
-    <script type="module" src="/candlesticks.js"></script>
-    <script type="module" src="/tables.js"></script>
-    <script type="module" src="/top.js"></script>
+    <%- body %>
 </body>
 </html>

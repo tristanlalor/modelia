@@ -18,12 +18,9 @@ const setNumRows = (numRows) => {
 }
 
 export const populateTable = (tableName, tableData, range) => {
-    console.log(tableData);
-    console.log(numYears);
     if (numYears > tableData.length) {
         numYears = tableData.length
     }
-    console.log(numYears)
     let fsOgContent = `
     <div class="table-tools">
     <img class="search-icon" id="search" src="img/columns.svg" style="height: 22px;" onclick="document.getElementById('numYears').focus();"></img>
@@ -43,15 +40,12 @@ export const populateTable = (tableName, tableData, range) => {
         </table>
     </div>
         `;
-   
-    console.log(numYears);
 
     document.querySelector('.variable-content').innerHTML = fsOgContent;
     const table = document.querySelector('.fs-table-outer table');
 
     let header = table.createTHead();
     let row = header.insertRow(0);
-    let base = row.insertCell(-1);
     let cell = row.insertCell(-1);
     if (tableName == "Income Statement" || tableName == "Balance Sheet" || tableName == "Cash Flows") {
         let period = "FY";
@@ -88,8 +82,6 @@ export const addYearData = (obj, num, range, tableName) => {
         let headerRow = document.querySelector('.fs-table-outer table thead tr')
         let cell = headerRow.insertCell(-1);
         if (tableName == "Income Statement" || tableName == "Balance Sheet" || tableName == "Cash Flows") {
-            console.log("numYear = " + (i+1));
-            console.log(obj[i]['period']);
             let period = "FY";
             if (localStorage.getItem("period") == "quarterly") {
                 period = obj[i]['period'] == "FY" ? "Q4" : obj[i]['period'];
@@ -169,7 +161,6 @@ export const populatePriceTable = (tableName, tableData) => {
             let cell = newRow.insertCell(-1);
             let contents;
             contents = headers[i] != 'date' ? summary.nFormatter(tableData[j][headers[i]], 2): tableData[j][headers[i]];
-            console.log(contents);
             if (contents == 'NaN') {contents = '–'};
             cell.innerHTML = contents;
         }
@@ -211,7 +202,6 @@ export let fsCollapseNav = () => {
 
     if (!navCollapsed) {
         document.querySelector('.fs-search-box').style.transform = "translateX(15px)";
-        console.log(`document.querySelector('.fs-search-box').style.transform = "translateX(15px)";`)
         nav.style.transform = 'translateX(-100%)';
         navCollapsed = true;
     } else {
@@ -247,27 +237,25 @@ const iOS = () => {
 let webkit = !!ua.match(/WebKit/i);
 let iOSSafari = iOS() && webkit;
 export const autoCollapseOnMobile = () => {
-    console.log("RESIZE EVENT");
+    //RESIZE EVENT
     if (window.innerWidth <= 750) {
-        console.log("SMALL WINDOW: " + window.innerWidth);
+        //SMALL WINDOW
         if (!document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
+            //TRIGGERING COLLAPSE
             fsCollapseNav();
         }
     } else {
-        console.log("BIG WINDOW: " + window.innerWidth);
+        //LARGE WINDOW
         if (document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
             fsCollapseNav();
-            console.log("TRIGGERING COLLAPSE");
         }
     }
+    //Move bottom arrow if on iOSSafari
     if (iOSSafari) {
         document.querySelector('.fs-collapse-nav').style.bottom = "69px";
     }
 }
 window.addEventListener('resize', autoCollapseOnMobile);
-
-
-
 
 //Add selected class to fs-nav-items
 document.querySelector('.fs-nav').addEventListener('click', e => {

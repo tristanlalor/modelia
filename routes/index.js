@@ -5,19 +5,13 @@ const { ensureAuthenticated } = require('../config/auth')
 //Welcome page
 router.get('/', (req, res) => {
     if (req.user) {
-        // res.locals.user = req.user;
-        // res.locals.loggedIn = true;
-        // window.user = req.user;
-        // window.loggedIn = true;
-        // res.redirect('/dashboard');
         res.render('welcome', {
             user: req.user,
-            loggedIn: true
+            loggedIn: true,
+            path: req.path
         });
     } else {
-        // window.loggedIn = false;
-        // res.locals.loggedIn = false;
-        res.render('welcome', { loggedIn: false });
+        res.render('welcome', { loggedIn: false, path: req.path });
     }
 });
 //Dashboard

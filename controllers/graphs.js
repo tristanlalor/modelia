@@ -98,16 +98,14 @@ export const createPriceChart = () => {
     let data;
     let symbol = localStorage.getItem("symbol");
     if (localStorage.getItem("priceData") == null) {
-      console.log("fetching priceData and storing in localStorage");
+      //fetching priceData and storing in localStorage
       let priceData = await APIHandler.generalFetch("historical-price-full", symbol);
       localStorage.setItem("priceData", JSON.stringify(priceData));
       data = priceData['historical'].reverse();
-      console.log(priceData);
   } else {
-      console.log("retrieving priceData from localStorage");
+      //retrieving priceData from localStorage
       let priceData = JSON.parse(localStorage.getItem("priceData"));
       data = priceData['historical'].reverse();
-      console.log(priceData);
   }
     chart.data = data;
 
@@ -260,16 +258,14 @@ export const createCandlestickChart = (numDays) => {
       let data;
       let symbol = localStorage.getItem("symbol");
       if (localStorage.getItem("priceData") == null) {
-        console.log("fetching priceData and storing in localStorage");
+        //fetching priceData and storing in localStorage
         let priceData = await APIHandler.generalFetch("historical-price-full", symbol);
         localStorage.setItem("priceData", JSON.stringify(priceData));
         data = priceData['historical'].reverse();
-        console.log(priceData);
     } else {
-        console.log("retrieving priceData from localStorage");
+        //retrieving priceData from localStorage
         let priceData = JSON.parse(localStorage.getItem("priceData"));
         data = priceData['historical'].reverse();
-        console.log(priceData);
     }
       if (numDays > data.length) {
         numDays = data.length;
