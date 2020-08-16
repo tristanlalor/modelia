@@ -302,19 +302,19 @@ var webkit = !!ua.match(/WebKit/i);
 var iOSSafari = iOS && webkit && !ua.match(/CriOS/i);
 export const autoCollapseOnMobile = () => {
     console.log("RESIZE EVENT");
+    if (iOSSafari) {
+        document.querySelector('.fs-collapse-nav').style.bottom = "69px";
+    }
     if (window.innerWidth <= 750) {
-        if (iOSSafari) {
-            document.querySelector('.fs-collapse-nav').style.bottom = "69px";
-        }
         console.log("SMALL WINDOW: " + window.innerWidth);
         if (!document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
             fsCollapseNav();
         }
     } else {
         console.log("BIG WINDOW: " + window.innerWidth);
-        if (iOSSafari) {
-            document.querySelector('.fs-collapse-nav').style.bottom = "0px";
-        }
+        // if (iOSSafari) {
+        //     document.querySelector('.fs-collapse-nav').style.bottom = "0px";
+        // }
         if (document.querySelector('.hamburger').classList.contains('ham-collapsed')) {
             fsCollapseNav();
             console.log("TRIGGERING COLLAPSE");
